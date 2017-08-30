@@ -1,0 +1,24 @@
+=================
+stmm-input-bttest
+=================
+
+stmm-input-bttest is a test client for the libstmm-input-gtk-bt server.
+
+It communicates with the server over bluetooth with a custom protocol
+called btkeys.
+
+When it is connected to a server it is added to it as a device with 
+keyboard-like capability.
+
+The server keeps the device associated with the client even when
+the client is disconnected. The device removal must be explicit.
+
+The GUI allows to select a server, connect to it and disconnect from it.
+
+While connected key presses and releases can be sent to the server by
+pressing on buttons with the mouse.
+
+  $>stmm-input-bttest --help
+
+to find out how to connect to a non detectable server and customize
+the behaviouor of the program.

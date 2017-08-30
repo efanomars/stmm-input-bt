@@ -1,0 +1,3 @@
+[submodule "googletest_stmm-input-bt"]
+	path = libstmm-input-bt/googletest
+	url = https://github.com/google/googletest.git
