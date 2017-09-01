@@ -6,8 +6,8 @@ keys-srv is a sample application that uses the stmm-input-gtk-bt library.
 It prints out to the terminal the keys received from bluetooth clients apps,
 according to a very simple protocol.
 This example code shows how to use the BtGtkDeviceManager as a stand-alone
-device manager. If you want it to be loaded as plugin instead try the examples
-of the libstmm-input-gtk-dm library.
+device manager. If you want it to be loaded as a plugin instead, try the
+examples of the libstmm-input-gtk-dm library (stmm-input repository).
 
 
 Compile and run

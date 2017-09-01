@@ -3,8 +3,8 @@ Installation
 
 Each project is separate and has its own description ('README.md'),
 license, installing instructions, etc. and can be built in its 
-own subfolder. But since the projects partially depend on each other, 
-a script is provided to compile and install the binaries in the right order.
+own subfolder. Despite the projects not depending on each other, 
+a script is provided to compile and install all the binaries.
 
   $ ./scripts/install_stmm-input-bt-all.py  --help
 
@@ -56,7 +56,6 @@ Dependencies
 - bluetoother
     + libgtkmm-3.0-dev
     + libbluetooth-dev
-    + pthreads
 
 - libstmm-input-gtk-bt
     + libstmm-input-gtk
@@ -65,6 +64,7 @@ Dependencies
 - stmm-input-bttest
     + libgtkmm-3.0-dev
     + libbluetooth-dev
+    + pthreads
 
 
 Note: in some linux distributions the packages might be named slightly

@@ -13,7 +13,8 @@ This source package contains:
     main event loop sending key events from bluetooth devices to listeners.
     The device manager starts a bluetooth server that accepts connections
     from clients on a specific L2CAP port following a very simple protocol.
-    The library can be stand-alone or loaded as a plugin by stmm-input-dl.
+    The library can be stand-alone or loaded as a plugin by libstmm-input-dl
+    (stmm-input repository).
 
 - stmm-input-bttest:
     test client that connects to the server defined in libstmm-input-gtk-bt.

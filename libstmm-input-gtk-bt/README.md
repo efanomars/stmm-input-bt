@@ -29,16 +29,17 @@ Setting up bluetooth
 --------------------
 
 To fine tune your bluetooth adapter you can use the bluetoother GUI application.
+
 Alternatively you can use the available command line tools of your distribution
 as follows.
 
 First: make sure there is bluetooth hardware on your pc with
 
-   $> /usr/sbin/rfkill list bluetooth
+    $> /usr/sbin/rfkill list bluetooth
 
 which should output something like
 
-   1: hci0: Bluetooth
+    1: hci0: Bluetooth
            Soft blocked: no
            Hard blocked: no
 
@@ -69,7 +70,7 @@ the following command (for example if the chip is on hci0, see above)
     $sudo hciconfig hci0 piscan
 
 
-The above commands can be found in (Debian Stretch, Linux Mint 18) packages:
+The mentioned commands can be found in (Debian Stretch, Linux Mint 18) packages:
 
     rfkill, bluez
 
@@ -79,8 +80,9 @@ The btkeys protocol
 -------------------
 
 Currently the server listens for connections on L2CAP port 8353 (0x20A1).
-In the future, the client might use SDP (bluetooth Service Discovery Protocol)
-to get a free port so that more than one server can run at once on a computer.
+In the future, the server might listen to a random free port and publish it
+through SDP (bluetooth's Service Discovery Protocol) so that more than one
+server can run simultaneously on a computer.
 
 Once a client successfully connects, it starts to send packets of the format
 
