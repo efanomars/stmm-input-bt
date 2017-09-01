@@ -75,38 +75,40 @@ private:
 	static constexpr int32_t s_nTotPages = 3;
 	int32_t m_aPageIndex[s_nTotPages];
 
-	Gtk::Box* m_p0VBoxMain;
+	//Gtk::Box* m_p0VBoxMain;
 
 	Gtk::Notebook* m_p0NotebookChoices;
 
 		static const int32_t s_nTabServers = 0;
-		Gtk::Label* m_p0TabLabelServers;
-		Gtk::Box* m_p0VBoxServers;
+		//Gtk::Label* m_p0TabLabelServers;
+		//Gtk::Box* m_p0VBoxServers;
 			Gtk::TreeView* m_p0TreeViewServers;
-			Gtk::Box* m_p0HBoxServersCmds;
+			//Gtk::Box* m_p0HBoxServersCmds;
 				Gtk::Button* m_p0ButtonChooseServer;
 				Gtk::Button* m_p0ButtonRefreshServers;
 				Gtk::Label* m_p0LabelProgress;
 
 		static const int32_t s_nTabKeys = 1;
-		Gtk::Label* m_p0TabLabelKeysOptions;
-		Gtk::Box* m_p0HBoxKeysOptions;
+		//Gtk::Label* m_p0TabLabelKeysOptions;
+		//Gtk::Box* m_p0HBoxKeysOptions;
 			Gtk::Grid* m_p0GridKeys; //TODO create arrays of boxes and toggles
 				std::string m_aKeysNames[s_nKeysGridW * s_nKeysGridH];
 				stmi::hk::HARDWARE_KEY m_aKeysHardware[s_nKeysGridW * s_nKeysGridH];
 				Gtk::ToggleButton* m_aToggleButtonKeys[s_nKeysGridW * s_nKeysGridH];
-			Gtk::Box* m_p0VBoxLogClick;
+			//Gtk::Box* m_p0VBoxLogClick;
 				Gtk::ScrolledWindow* m_p0ScrolledLog;
 					Gtk::TextView* m_p0TextViewLog;
 				Gtk::CheckButton* m_p0CheckButtonWeirdClick;
 
 		static const int32_t s_nTabInfo = 2;
-		Gtk::Label* m_p0TabLabelInfo;
-		Gtk::TextView* m_p0TextViewInfos;
+		//Gtk::Label* m_p0TabLabelInfo;
+		//Gtk::ScrolledWindow* m_p0ScrolledInfo;
+			//Gtk::Label* m_p0LabelInfoText;
+//		Gtk::TextView* m_p0TextViewInfos;
 
-	Gtk::Box* m_p0VBoxConnection;
+	//Gtk::Box* m_p0VBoxConnection;
 		Gtk::Label* m_p0LabelServer;
-		Gtk::Box* m_p0HBoxConnectionCmds;
+		//Gtk::Box* m_p0HBoxConnectionCmds;
 			Gtk::Button* m_p0ButtonConnect;
 			Gtk::Button* m_p0ButtonDisconnect;
 			Gtk::Button* m_p0ButtonRemove;

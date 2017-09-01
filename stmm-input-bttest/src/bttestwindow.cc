@@ -31,27 +31,29 @@ namespace stmi
 BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient, BtKeyServers& oBtKeyServers)
 : m_oBtKeyClient(oBtKeyClient)
 , m_oBtKeyServers(oBtKeyServers)
-, m_p0VBoxMain(nullptr)
+//, m_p0VBoxMain(nullptr)
 , m_p0NotebookChoices(nullptr)
-, m_p0TabLabelServers(nullptr)
-, m_p0VBoxServers(nullptr)
+//, m_p0TabLabelServers(nullptr)
+//, m_p0VBoxServers(nullptr)
 , m_p0TreeViewServers(nullptr)
-, m_p0HBoxServersCmds(nullptr)
+//, m_p0HBoxServersCmds(nullptr)
 , m_p0ButtonChooseServer(nullptr)
 , m_p0ButtonRefreshServers(nullptr)
 , m_p0LabelProgress(nullptr)
-, m_p0TabLabelKeysOptions(nullptr)
-, m_p0HBoxKeysOptions(nullptr)
+//, m_p0TabLabelKeysOptions(nullptr)
+//, m_p0HBoxKeysOptions(nullptr)
 , m_p0GridKeys(nullptr)
-, m_p0VBoxLogClick(nullptr)
-, m_p0ScrolledLog(nullptr)
+//, m_p0VBoxLogClick(nullptr)
+//, m_p0ScrolledLog(nullptr)
 , m_p0TextViewLog(nullptr)
 , m_p0CheckButtonWeirdClick(nullptr)
-, m_p0TabLabelInfo(nullptr)
-, m_p0TextViewInfos(nullptr)
-, m_p0VBoxConnection(nullptr)
+//, m_p0TabLabelInfo(nullptr)
+//, m_p0ScrolledInfo(nullptr)
+//, m_p0LabelInfoText(nullptr)
+//, m_p0TextViewInfos(nullptr)
+//, m_p0VBoxConnection(nullptr)
 , m_p0LabelServer(nullptr)
-, m_p0HBoxConnectionCmds(nullptr)
+//, m_p0HBoxConnectionCmds(nullptr)
 , m_p0ButtonConnect(nullptr)
 , m_p0ButtonDisconnect(nullptr)
 , m_p0ButtonRemove(nullptr)
@@ -86,7 +88,7 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection;
 	Pango::FontDescription oMonoFont("Mono");
 
-	m_p0VBoxMain = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
+	Gtk::Box* m_p0VBoxMain = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
 	Gtk::Window::add(*m_p0VBoxMain);
 
 	m_p0NotebookChoices = Gtk::manage(new Gtk::Notebook());
@@ -94,8 +96,8 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 		m_p0NotebookChoices->signal_switch_page().connect(
 						sigc::mem_fun(*this, &BttestWindow::onNotebookSwitchPage) );
 
-	m_p0TabLabelServers = Gtk::manage(new Gtk::Label("\"Servers\""));
-	m_p0VBoxServers = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
+	Gtk::Label* m_p0TabLabelServers = Gtk::manage(new Gtk::Label("\"Servers\""));
+	Gtk::Box* m_p0VBoxServers = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
 	m_aPageIndex[s_nTabServers] = m_p0NotebookChoices->append_page(*m_p0VBoxServers, *m_p0TabLabelServers);
 
 		//Create the Servers tree model
@@ -109,7 +111,7 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 			refTreeSelection->signal_changed().connect(
 							sigc::mem_fun(*this, &BttestWindow::onServerSelectionChanged));
 
-		m_p0HBoxServersCmds = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
+		Gtk::Box* m_p0HBoxServersCmds = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
 		m_p0VBoxServers->pack_start(*m_p0HBoxServersCmds, false, false);
 			m_p0ButtonChooseServer = Gtk::manage(new Gtk::Button("Select"));
 			m_p0HBoxServersCmds->pack_start(*m_p0ButtonChooseServer, true, true);
@@ -122,8 +124,8 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 			m_p0LabelProgress = Gtk::manage(new Gtk::Label("Progress"));
 			m_p0HBoxServersCmds->pack_start(*m_p0LabelProgress);
 
-	m_p0TabLabelKeysOptions = Gtk::manage(new Gtk::Label("Keys"));
-	m_p0HBoxKeysOptions = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
+	Gtk::Label* m_p0TabLabelKeysOptions = Gtk::manage(new Gtk::Label("Keys"));
+	Gtk::Box* m_p0HBoxKeysOptions = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
 	m_aPageIndex[s_nTabKeys] = m_p0NotebookChoices->append_page(*m_p0HBoxKeysOptions, *m_p0TabLabelKeysOptions);
 
 		m_p0GridKeys = Gtk::manage(new Gtk::Grid());
@@ -163,10 +165,10 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 				}
 			}
 
-		m_p0VBoxLogClick = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
+		Gtk::Box* m_p0VBoxLogClick = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
 		m_p0HBoxKeysOptions->pack_start(*m_p0VBoxLogClick, true, true);
 
-			m_p0ScrolledLog = Gtk::manage(new Gtk::ScrolledWindow());
+			Gtk::ScrolledWindow* m_p0ScrolledLog = Gtk::manage(new Gtk::ScrolledWindow());
 			m_p0VBoxLogClick->pack_start(*m_p0ScrolledLog, true, true);
 				m_p0ScrolledLog->set_border_width(5);
 				m_p0ScrolledLog->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_ALWAYS);
@@ -185,16 +187,23 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 				m_p0CheckButtonWeirdClick->signal_toggled().connect(
 								sigc::mem_fun(*this, &BttestWindow::onWeirdClickToggled) );
 
-	m_p0TabLabelInfo = Gtk::manage(new Gtk::Label("Info"));
-	m_p0TextViewInfos = Gtk::manage(new Gtk::TextView());
-	m_aPageIndex[s_nTabInfo] = m_p0NotebookChoices->append_page(*m_p0TextViewInfos, *m_p0TabLabelInfo);
-		m_refTextBufferInfo  = Gtk::TextBuffer::create();
-		m_p0TextViewInfos->set_editable(false);
-		m_p0TextViewInfos->set_buffer(m_refTextBufferInfo);
-		m_refTextBufferInfo->set_text(sInfoText);
-		m_p0TextViewInfos->override_font(oMonoFont);
+	Gtk::Label* m_p0TabLabelInfo = Gtk::manage(new Gtk::Label("Info"));
+	Gtk::ScrolledWindow* m_p0ScrolledInfo = Gtk::manage(new Gtk::ScrolledWindow());
+//	m_p0TextViewInfos = Gtk::manage(new Gtk::TextView());
+	m_aPageIndex[s_nTabInfo] = m_p0NotebookChoices->append_page(*m_p0ScrolledInfo, *m_p0TabLabelInfo);
+		m_p0ScrolledInfo->set_border_width(5);
+		m_p0ScrolledInfo->set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_AUTOMATIC);
 
-	m_p0VBoxConnection = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
+		Gtk::Label* m_p0LabelInfoText = Gtk::manage(new Gtk::Label(sInfoText));
+		m_p0ScrolledInfo->add(*m_p0LabelInfoText);
+			m_p0LabelInfoText->set_line_wrap_mode(Pango::WRAP_WORD_CHAR);
+//		m_refTextBufferInfo  = Gtk::TextBuffer::create();
+//		m_p0TextViewInfos->set_editable(false);
+//		m_p0TextViewInfos->set_buffer(m_refTextBufferInfo);
+//		m_refTextBufferInfo->set_text(sInfoText);
+//		m_p0TextViewInfos->override_font(oMonoFont);
+
+	Gtk::Box* m_p0VBoxConnection = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
 	m_p0VBoxMain->pack_start(*m_p0VBoxConnection, false, false);
 
 		m_p0LabelServer = Gtk::manage(new Gtk::Label("Server"));
@@ -202,7 +211,7 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 			m_p0LabelServer->set_margin_top(5);
 			m_p0LabelServer->set_margin_bottom(5);
 
-		m_p0HBoxConnectionCmds = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
+		Gtk::Box* m_p0HBoxConnectionCmds = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
 		m_p0VBoxConnection->pack_start(*m_p0HBoxConnectionCmds, false, false);
 			m_p0ButtonConnect = Gtk::manage(new Gtk::Button("Connect"));
 			m_p0HBoxConnectionCmds->pack_start(*m_p0ButtonConnect, true, true);

@@ -31,8 +31,10 @@ namespace stmi
 TootherWindow::TootherWindow(const std::string& sTitle, BtService& oBtService, HciSocket& oHciSocket)
 : m_oBtService(oBtService)
 , m_oHciSocket(oHciSocket)
+//, m_p0NotebookChoices(nullptr)
+//, m_p0TabLabelMain(nullptr)
 , m_p0VBoxMain(nullptr)
-, m_p0HBoxRefreshAdapters(nullptr)
+//, m_p0HBoxRefreshAdapters(nullptr)
 , m_p0ButtonRefresh(nullptr)
 , m_p0TreeViewAdapters(nullptr)
 , m_p0LabelCurrentAdapter(nullptr)
@@ -40,14 +42,20 @@ TootherWindow::TootherWindow(const std::string& sTitle, BtService& oBtService, H
 , m_p0CheckButtonHardwareEnabled(nullptr)
 , m_p0CheckButtonSoftwareEnabled(nullptr)
 , m_p0CheckButtonAdapterIsUp(nullptr)
-, m_p0HBoxLocalName(nullptr)
-, m_p0LabelLocalName(nullptr)
+//, m_p0HBoxLocalName(nullptr)
+//, m_p0LabelLocalName(nullptr)
 , m_p0EntryAdapterLocalName(nullptr)
 , m_p0CheckButtonAdapterDetectable(nullptr)
 , m_p0CheckButtonAdapterConnectable(nullptr)
 , m_p0CheckButtonServiceRunning(nullptr)
 , m_p0CheckButtonServiceEnabled(nullptr)
 , m_p0ButtonTurnAllOn(nullptr)
+//, m_p0TabLabelLog(nullptr)
+//, m_p0ScrolledLog(nullptr)
+, m_p0TextViewLog(nullptr)
+//, m_p0TabLabelInfo(nullptr)
+//, m_p0ScrolledInfo(nullptr)
+//, m_p0LabelInfoText(nullptr)
 , m_nTextBufferLogTotLines(0)
 , m_nSelectedHciId(-1)
 , m_bNeedsRefreshing(false)
@@ -83,17 +91,17 @@ TootherWindow::TootherWindow(const std::string& sTitle, BtService& oBtService, H
 	Glib::RefPtr<Gtk::TreeSelection> refTreeSelection;
 	Pango::FontDescription oMonoFont("Mono");
 
-	m_p0NotebookChoices = Gtk::manage(new Gtk::Notebook());
+	Gtk::Notebook* m_p0NotebookChoices = Gtk::manage(new Gtk::Notebook());
 	Gtk::Window::add(*m_p0NotebookChoices);
 		m_p0NotebookChoices->signal_switch_page().connect(
 						sigc::mem_fun(*this, &TootherWindow::onNotebookSwitchPage) );
 
-	m_p0TabLabelMain = Gtk::manage(new Gtk::Label("Main"));
+	Gtk::Label* m_p0TabLabelMain = Gtk::manage(new Gtk::Label("Main"));
 	m_p0VBoxMain = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
 	m_aPageIndex[s_nTabMain] = m_p0NotebookChoices->append_page(*m_p0VBoxMain, *m_p0TabLabelMain);
 		m_p0VBoxMain->set_spacing(4);
 
-		m_p0HBoxRefreshAdapters = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
+		Gtk::Box* m_p0HBoxRefreshAdapters = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
 		m_p0VBoxMain->pack_start(*m_p0HBoxRefreshAdapters, false, false);
 			m_p0HBoxRefreshAdapters->set_spacing(6);
 			m_p0ButtonRefresh = Gtk::manage(new Gtk::Button("Refresh"));
@@ -128,9 +136,9 @@ TootherWindow::TootherWindow(const std::string& sTitle, BtService& oBtService, H
 			m_p0CheckButtonAdapterIsUp->signal_toggled().connect(
 							sigc::mem_fun(*this, &TootherWindow::onAdapterIsUpToggled) );
 
-		m_p0HBoxLocalName = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
+		Gtk::Box* m_p0HBoxLocalName = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
 		m_p0VBoxMain->pack_start(*m_p0HBoxLocalName, false, false);
-			m_p0LabelLocalName = Gtk::manage(new Gtk::Label("Local name:"));
+			Gtk::Label* m_p0LabelLocalName = Gtk::manage(new Gtk::Label("Local name:"));
 			m_p0HBoxLocalName->pack_start(*m_p0LabelLocalName, false, false);
 			m_p0EntryAdapterLocalName = Gtk::manage(new Gtk::Entry());
 			m_p0HBoxLocalName->pack_start(*m_p0EntryAdapterLocalName, true, true);
@@ -161,8 +169,8 @@ TootherWindow::TootherWindow(const std::string& sTitle, BtService& oBtService, H
 			m_p0ButtonTurnAllOn->signal_clicked().connect(
 							sigc::mem_fun(*this, &TootherWindow::onButtonTurnAllOn) );
 
-	m_p0TabLabelLog = Gtk::manage(new Gtk::Label("Log"));
-	m_p0ScrolledLog = Gtk::manage(new Gtk::ScrolledWindow());
+	Gtk::Label* m_p0TabLabelLog = Gtk::manage(new Gtk::Label("Log"));
+	Gtk::ScrolledWindow* m_p0ScrolledLog = Gtk::manage(new Gtk::ScrolledWindow());
 	m_aPageIndex[s_nTabLog] = m_p0NotebookChoices->append_page(*m_p0ScrolledLog, *m_p0TabLabelLog);
 		m_p0ScrolledLog->set_border_width(5);
 		m_p0ScrolledLog->set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_ALWAYS);
@@ -177,14 +185,16 @@ TootherWindow::TootherWindow(const std::string& sTitle, BtService& oBtService, H
 			m_p0TextViewLog->override_font(oMonoFont);
 			m_refTextBufferLog->add_mark(m_refTextBufferMarkBottom, m_refTextBufferLog->end());
 
-	m_p0TabLabelInfo = Gtk::manage(new Gtk::Label("Info"));
-	m_p0TextViewInfos = Gtk::manage(new Gtk::TextView());
-	m_aPageIndex[s_nTabInfo] = m_p0NotebookChoices->append_page(*m_p0TextViewInfos, *m_p0TabLabelInfo);
-		m_refTextBufferInfo  = Gtk::TextBuffer::create();
-		m_p0TextViewInfos->set_editable(false);
-		m_p0TextViewInfos->set_buffer(m_refTextBufferInfo);
-		m_refTextBufferInfo->set_text(sInfoText);
-		m_p0TextViewInfos->override_font(oMonoFont);
+	Gtk::Label* m_p0TabLabelInfo = Gtk::manage(new Gtk::Label("Info"));
+	Gtk::ScrolledWindow* m_p0ScrolledInfo = Gtk::manage(new Gtk::ScrolledWindow());
+	m_aPageIndex[s_nTabInfo] = m_p0NotebookChoices->append_page(*m_p0ScrolledInfo, *m_p0TabLabelInfo);
+		m_p0ScrolledInfo->set_border_width(5);
+		m_p0ScrolledInfo->set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_AUTOMATIC);
+
+		Gtk::Label* m_p0LabelInfoText = Gtk::manage(new Gtk::Label(sInfoText));
+		m_p0ScrolledInfo->add(*m_p0LabelInfoText);
+			m_p0LabelInfoText->set_line_wrap_mode(Pango::WRAP_WORD_CHAR);
+
 
 	show_all_children();
 

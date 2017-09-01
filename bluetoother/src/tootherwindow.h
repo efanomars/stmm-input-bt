@@ -70,13 +70,13 @@ private:
 	static constexpr int32_t s_nTotPages = 3;
 	int32_t m_aPageIndex[s_nTotPages];
 
-	Gtk::Notebook* m_p0NotebookChoices;
+	//Gtk::Notebook* m_p0NotebookChoices;
 
 		static const int32_t s_nTabMain = 0;
-		Gtk::Label* m_p0TabLabelMain;
+		//Gtk::Label* m_p0TabLabelMain;
 		Gtk::Box* m_p0VBoxMain;
 
-			Gtk::Box* m_p0HBoxRefreshAdapters;
+			//Gtk::Box* m_p0HBoxRefreshAdapters;
 				Gtk::Button* m_p0ButtonRefresh;
 				Gtk::TreeView* m_p0TreeViewAdapters;
 
@@ -88,8 +88,8 @@ private:
 
 			Gtk::CheckButton* m_p0CheckButtonAdapterIsUp;
 
-			Gtk::Box* m_p0HBoxLocalName;
-				Gtk::Label* m_p0LabelLocalName;
+			//Gtk::Box* m_p0HBoxLocalName;
+				//Gtk::Label* m_p0LabelLocalName;
 				Gtk::Entry* m_p0EntryAdapterLocalName;
 
 			Gtk::CheckButton* m_p0CheckButtonAdapterDetectable;
@@ -101,13 +101,14 @@ private:
 			Gtk::Button* m_p0ButtonTurnAllOn;
 
 		static const int32_t s_nTabLog = 1;
-		Gtk::Label* m_p0TabLabelLog;
-		Gtk::ScrolledWindow* m_p0ScrolledLog;
+		//Gtk::Label* m_p0TabLabelLog;
+		//Gtk::ScrolledWindow* m_p0ScrolledLog;
 			Gtk::TextView* m_p0TextViewLog;
 
 		static const int32_t s_nTabInfo = 2;
-		Gtk::Label* m_p0TabLabelInfo;
-		Gtk::TextView* m_p0TextViewInfos;
+		//Gtk::Label* m_p0TabLabelInfo;
+		//Gtk::ScrolledWindow* m_p0ScrolledInfo;
+			//Gtk::Label* m_p0LabelInfoText;
 
 	class AdaptersColumns : public Gtk::TreeModel::ColumnRecord
 	{
