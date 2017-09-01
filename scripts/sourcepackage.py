@@ -56,6 +56,7 @@ def main():
 	sCmd = ("tar -zcf  stmm-input-bt-{}.tar.gz -v"
 							" {}"
 							" --exclude=.git"
+							" --exclude=.gitmodules"
 							" --exclude=stuff"
 							" --exclude=googletest"
 							" --exclude=.metadata"

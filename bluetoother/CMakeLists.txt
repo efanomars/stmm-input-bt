@@ -69,6 +69,7 @@ configure_file("${PROJECT_SOURCE_DIR}/src/config.cc.in"
 # This allows config.cc to find the config.h include
 target_include_directories(bluetoother PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
+if ($ENV{STMM_CMAKE_COMMENTS})
 message(STATUS "")
 message(STATUS "bluetoother was configured with the following options:")
 message(STATUS " STMMI_BTER_SOURCES:            ${STMMI_BTER_SOURCES}")
@@ -80,6 +81,7 @@ message(STATUS " CMAKE_CXX_COMPILER_ID:         ${CMAKE_CXX_COMPILER_ID}")
 message(STATUS " CMAKE_CXX_COMPILER_VERSION:    ${CMAKE_CXX_COMPILER_VERSION}")
 #message(STATUS " CMAKE_CXX_FLAGS:               $<TARGET_PROPERTY:bluetoother,COMPILE_OPTIONS>")
 message(STATUS " install prefix:                ${CMAKE_INSTALL_PREFIX}")
+endif()
 
 target_link_libraries(bluetoother ${STMMI_BTER_EXTRA_LIBS}) # ${STMMI_BTER_EXTRA_LDFLAGS}
 

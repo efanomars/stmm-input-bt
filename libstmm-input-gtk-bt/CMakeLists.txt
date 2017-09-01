@@ -129,6 +129,7 @@ if (("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") AND (BUILD_SHARED_LIBS))
     target_compile_options(stmm-input-gtk-bt PUBLIC "-Wl,-E")
 endif()
 
+if ($ENV{STMM_CMAKE_COMMENTS})
 message(STATUS "")
 message(STATUS "stmm-input-gtk-bt was configured with the following options:")
 message(STATUS " STMMI_HEADERS:                   ${STMMI_HEADERS}")
@@ -145,6 +146,7 @@ message(STATUS " BUILD_TESTING:                   ${BUILD_TESTING}")
 if (BUILD_SHARED_LIBS)
 message(STATUS " STMMI_PLUGINS_DATA_DIR:          ${STMMI_PLUGINS_DATA_DIR}")
 message(STATUS " STMMI_PLUGINS_USER_DATA_DIR:     ${STMMI_PLUGINS_USER_DATA_DIR}")
+endif()
 endif()
 
 # Documentation

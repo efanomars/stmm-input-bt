@@ -73,6 +73,7 @@ configure_file("${PROJECT_SOURCE_DIR}/src/config.cc.in"
 # This allows config.cc to find the config.h include
 target_include_directories(stmm-input-bttest PUBLIC ${PROJECT_SOURCE_DIR}/src)
 
+if ($ENV{STMM_CMAKE_COMMENTS})
 message(STATUS "")
 message(STATUS "stmm-input-bttest was configured with the following options:")
 message(STATUS " STMMI_BTTEST_SOURCES:            ${STMMI_BTTEST_SOURCES}")
@@ -84,6 +85,7 @@ message(STATUS " CMAKE_CXX_COMPILER_ID:           ${CMAKE_CXX_COMPILER_ID}")
 message(STATUS " CMAKE_CXX_COMPILER_VERSION:      ${CMAKE_CXX_COMPILER_VERSION}")
 #message(STATUS " CMAKE_CXX_FLAGS:                 $<TARGET_PROPERTY:stmm-input-bttest,COMPILE_OPTIONS>")
 message(STATUS " install prefix:                  ${CMAKE_INSTALL_PREFIX}")
+endif()
 
 target_link_libraries(stmm-input-bttest ${STMMI_BTTEST_EXTRA_LIBS} -lpthread) # ${STMMI_BTTEST_EXTRA_LDFLAGS}
 
