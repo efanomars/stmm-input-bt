@@ -18,8 +18,8 @@
  * File:   stmm-input-gtk-bt.h
  */
 
-#ifndef _STMI_STMM_INPUT_GTK_BT_H_
-#define _STMI_STMM_INPUT_GTK_BT_H_
+#ifndef STMI_STMM_INPUT_GTK_BT_H
+#define STMI_STMM_INPUT_GTK_BT_H
 
 /* This file includes all headers of the stmm-input-gtk-dm library. */
 
@@ -30,5 +30,5 @@
 #include <stmm-input-ev/stmm-input-ev.h>
 #include <stmm-input-gtk/stmm-input-gtk.h>
 
-#endif /* _STMI_STMM_INPUT_GTK_BT_H_ */
+#endif /* STMI_STMM_INPUT_GTK_BT_H */
 

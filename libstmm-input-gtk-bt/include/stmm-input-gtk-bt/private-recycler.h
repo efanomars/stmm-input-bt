@@ -18,8 +18,8 @@
  * File:   private_recycler.h
  */
 
-#ifndef _STMI_RECYCLER_H_
-#define _STMI_RECYCLER_H_
+#ifndef STMI_RECYCLER_H
+#define STMI_RECYCLER_H
 
 #include <cassert>
 #include <iostream>
@@ -83,5 +83,5 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_RECYCLER_H_ */
+#endif /* STMI_RECYCLER_H */
 

@@ -18,8 +18,8 @@
  * File:   libmain.h
  */
 
-#ifndef _STMI_BT_GTK_DEVICE_MANAGER_LIB_MAIN_H_
-#define	_STMI_BT_GTK_DEVICE_MANAGER_LIB_MAIN_H_
+#ifndef STMI_BT_GTK_DEVICE_MANAGER_LIB_MAIN_H
+#define STMI_BT_GTK_DEVICE_MANAGER_LIB_MAIN_H
 
 #include <stmm-input-base/childdevicemanager.h>
 #include <stmm-input/event.h>
@@ -44,5 +44,5 @@ shared_ptr<stmi::ChildDeviceManager> createPlugin(const std::string& sAppName
 }
 #endif
 
-#endif /* _STMI_BT_GTK_DEVICE_MANAGER_LIB_MAIN_H_ */
+#endif /* STMI_BT_GTK_DEVICE_MANAGER_LIB_MAIN_H */
 

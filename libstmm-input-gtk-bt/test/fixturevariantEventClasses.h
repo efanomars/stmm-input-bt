@@ -18,8 +18,8 @@
  * File:   fixturevariantEventClasses.h
  */
 
-#ifndef _STMI_TESTING_FIXTURE_VARIANT_EVENT_CLASSES_H_
-#define _STMI_TESTING_FIXTURE_VARIANT_EVENT_CLASSES_H_
+#ifndef STMI_TESTING_FIXTURE_VARIANT_EVENT_CLASSES_H
+#define STMI_TESTING_FIXTURE_VARIANT_EVENT_CLASSES_H
 
 #include <stmm-input-ev/stmm-input-ev.h>
 
@@ -114,4 +114,4 @@ protected:
 
 } // namespace stmi
 
-#endif /* _STMI_TESTING_FIXTURE_VARIANT_EVENT_CLASSES_H_ */
+#endif /* STMI_TESTING_FIXTURE_VARIANT_EVENT_CLASSES_H */

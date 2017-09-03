@@ -18,8 +18,8 @@
  * File:   btkeyservers.h
  */
 
-#ifndef _STMI_BT_KEY_SERVERS_
-#define _STMI_BT_KEY_SERVERS_
+#ifndef STMI_BT_KEY_SERVERS_H
+#define STMI_BT_KEY_SERVERS_H
 
 #include "btclientsources.h"
 
@@ -142,5 +142,5 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_BT_KEY_SERVERS_ */
+#endif /* STMI_BT_KEY_SERVERS_H */
 

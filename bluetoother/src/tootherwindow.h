@@ -18,8 +18,8 @@
  * File:   tootherwindow.h
  */
 
-#ifndef _STMI_TOOTHER_WINDOW_
-#define _STMI_TOOTHER_WINDOW_
+#ifndef STMI_TOOTHER_WINDOW_H
+#define STMI_TOOTHER_WINDOW_H
 
 #include "btservice.h"
 #include "hcisocket.h"
@@ -157,5 +157,5 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_TOOTHER_WINDOW_ */
+#endif /* STMI_TOOTHER_WINDOW_H */
 

@@ -18,8 +18,8 @@
  * File:   hciadapter.h
  */
 
-#ifndef _STMI_HCI_ADAPTER_
-#define _STMI_HCI_ADAPTER_
+#ifndef STMI_HCI_ADAPTER_H
+#define STMI_HCI_ADAPTER_H
 
 
 #include <vector>
@@ -103,5 +103,5 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_HCI_ADAPTER_ */
+#endif /* STMI_HCI_ADAPTER_H */
 

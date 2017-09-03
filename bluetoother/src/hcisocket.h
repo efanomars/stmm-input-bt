@@ -18,8 +18,8 @@
  * File:   hcisocket.h
  */
 
-#ifndef _STMI_HCI_SOCKET_
-#define _STMI_HCI_SOCKET_
+#ifndef STMI_HCI_SOCKET_H
+#define STMI_HCI_SOCKET_H
 
 
 #include "hciadapter.h"
@@ -94,5 +94,5 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_HCI_SOCKET_ */
+#endif /* STMI_HCI_SOCKET_H */
 

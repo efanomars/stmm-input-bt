@@ -18,8 +18,8 @@
  * File:   config.h
  */
 
-#ifndef _STMI_CONFIG_
-#define _STMI_CONFIG_
+#ifndef STMI_CONFIG_H
+#define STMI_CONFIG_H
 
 #include <string>
 
@@ -37,5 +37,5 @@ const std::string& getDataDir();
 
 } // namespace stmi
 
-#endif /* _STMI_CONFIG_ */
+#endif /* STMI_CONFIG_H */
 

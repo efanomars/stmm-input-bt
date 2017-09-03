@@ -18,8 +18,8 @@
  * File:   keypacket.h
  */
 
-#ifndef _STMI_BT_KEY_PACKET_H_
-#define _STMI_BT_KEY_PACKET_H_
+#ifndef STMI_BT_KEY_PACKET_H
+#define STMI_BT_KEY_PACKET_H
 
 #include <stdint.h>
 
@@ -51,4 +51,4 @@ struct KeyPacket
 
 } // namespace stmi
 
-#endif /* _STMI_BT_KEY_PACKET_H_ */
+#endif /* STMI_BT_KEY_PACKET_H */

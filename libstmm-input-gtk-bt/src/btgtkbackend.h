@@ -18,8 +18,8 @@
  * File:   btgtkbackend.h
  */
 
-#ifndef _STMI_BT_GTK_BACKEND_H_
-#define _STMI_BT_GTK_BACKEND_H_
+#ifndef STMI_BT_GTK_BACKEND_H
+#define STMI_BT_GTK_BACKEND_H
 
 #include "btgtkdevicemanager.h"
 
@@ -118,4 +118,4 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_BT_GTK_BACKEND_H_ */
+#endif /* STMI_BT_GTK_BACKEND_H */

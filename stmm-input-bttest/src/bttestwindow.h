@@ -18,8 +18,8 @@
  * File:   bttestwindow.h
  */
 
-#ifndef _STMI_BTTEST_WINDOW_
-#define _STMI_BTTEST_WINDOW_
+#ifndef STMI_BTTEST_WINDOW_H
+#define STMI_BTTEST_WINDOW_H
 
 #include "btkeyclient.h"
 #include "btkeyservers.h"
@@ -166,5 +166,5 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_BTTEST_WINDOW_ */
+#endif /* STMI_BTTEST_WINDOW_H */
 

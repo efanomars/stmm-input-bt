@@ -18,8 +18,8 @@
  * File:   btgtkwindowdata.h
  */
 
-#ifndef _STMI_BT_GTK_WINDOW_DATA_H_
-#define _STMI_BT_GTK_WINDOW_DATA_H_
+#ifndef STMI_BT_GTK_WINDOW_DATA_H
+#define STMI_BT_GTK_WINDOW_DATA_H
 
 #include "btgtkdevicemanager.h"
 
@@ -146,4 +146,4 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_BT_GTK_WINDOW_DATA_H_ */
+#endif /* STMI_BT_GTK_WINDOW_DATA_H */

@@ -18,8 +18,8 @@
  * File:   hardwarekey.h
  */
 
-#ifndef _STMI_HARDWARE_KEY_H_
-#define _STMI_HARDWARE_KEY_H_
+#ifndef STMI_HARDWARE_KEY_H
+#define STMI_HARDWARE_KEY_H
 
 #include <type_traits>
 #include <cstdlib>
@@ -624,4 +624,4 @@ enum HARDWARE_KEY {
 
 } // namespace stmi
 
-#endif /* _STMI_HARDWARE_KEY_H_ */
+#endif /* STMI_HARDWARE_KEY_H */

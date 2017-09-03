@@ -18,8 +18,8 @@
  * File:   btkeyclient.h
  */
 
-#ifndef _STMI_BT_KEY_CLIENT_
-#define _STMI_BT_KEY_CLIENT_
+#ifndef STMI_BT_KEY_CLIENT_H
+#define STMI_BT_KEY_CLIENT_H
 
 #include "btclientsources.h"
 #include "circularbuffer.h"
@@ -120,5 +120,5 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_BT_KEY_CLIENT_ */
+#endif /* STMI_BT_KEY_CLIENT_H */
 

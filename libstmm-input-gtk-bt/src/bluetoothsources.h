@@ -18,8 +18,8 @@
  * File:   bluetoothsources.h
  */
 
-#ifndef _STMI_BLUETOOTH_SOURCES_H_
-#define _STMI_BLUETOOTH_SOURCES_H_
+#ifndef STMI_BLUETOOTH_SOURCES_H
+#define STMI_BLUETOOTH_SOURCES_H
 
 #include "keypacket.h"
 
@@ -185,4 +185,4 @@ private:
 
 } // namespace stmi
 
-#endif /* _STMI_BLUETOOTH_SOURCES_H_ */
+#endif /* STMI_BLUETOOTH_SOURCES_H */

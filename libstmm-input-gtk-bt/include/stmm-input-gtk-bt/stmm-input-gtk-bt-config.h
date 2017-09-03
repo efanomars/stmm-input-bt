@@ -18,8 +18,8 @@
  * File:   stmm-input-gtk-bt-config.h
  */
 
-#ifndef _STMI_STMM_INPUT_GTK_BT_LIB_CONFIG_
-#define _STMI_STMM_INPUT_GTK_BT_LIB_CONFIG_
+#ifndef STMI_STMM_INPUT_GTK_BT_LIB_CONFIG_H
+#define STMI_STMM_INPUT_GTK_BT_LIB_CONFIG_H
 
 namespace stmi
 {
@@ -46,5 +46,5 @@ const char* getPluginName();
 
 } // namespace stmi
 
-#endif /* _STMI_STMM_INPUT_GTK_BT_LIB_CONFIG_ */
+#endif /* STMI_STMM_INPUT_GTK_BT_LIB_CONFIG_H */
 

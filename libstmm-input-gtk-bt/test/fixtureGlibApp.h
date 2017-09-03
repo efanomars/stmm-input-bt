@@ -18,8 +18,8 @@
  * File:   fixtureGlibApp.h
  */
 
-#ifndef _STMI_TESTING_FIXTURE_GLIB_APP_H_
-#define _STMI_TESTING_FIXTURE_GLIB_APP_H_
+#ifndef STMI_TESTING_FIXTURE_GLIB_APP_H
+#define STMI_TESTING_FIXTURE_GLIB_APP_H
 
 #include <gtkmm.h>
 
@@ -53,4 +53,4 @@ public:
 
 } // namespace stmi
 
-#endif /* _STMI_TESTING_FIXTURE_GLIB_APP_H_ */
+#endif /* STMI_TESTING_FIXTURE_GLIB_APP_H */
