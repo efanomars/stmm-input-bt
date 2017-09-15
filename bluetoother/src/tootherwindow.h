@@ -139,8 +139,6 @@ private:
 	bool m_bRefreshing;
 	bool m_bRegeneratingAdaptersModel;
 
-	//sigc::connection m_oTimeoutConn;
-
 	Glib::RefPtr<Gdk::Cursor> m_refStdCursor;
 	Glib::RefPtr<Gdk::Cursor> m_refWatchCursor;
 

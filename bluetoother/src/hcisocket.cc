@@ -14,6 +14,11 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, see <http://www.gnu.org/licenses/>
  */
+/* Parts of code modified from bluez package
+ *  Copyright (C) 2000-2001  Qualcomm Incorporated
+ *  Copyright (C) 2002-2003  Maxim Krasnyansky <maxk@qualcomm.com>
+ *  Copyright (C) 2002-2010  Marcel Holtmann <marcel@holtmann.org>
+ */
 /*
  * File:   hcisocket.cc
  */
@@ -31,8 +36,6 @@
 
 #include <errno.h>
 #include <unistd.h>
-
-// This code was modified from Bluez library
 
 namespace stmi
 {

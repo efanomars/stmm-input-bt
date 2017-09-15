@@ -20,6 +20,21 @@ The first parameter can also be 'Release', 'MinSizeRel' or 'RelWithDebInfo'
 (see cmake documentation).
 The second parameter can be omitted ('/usr/local' is the default).
 
+If you want to determine the compiler that the scripts should use,
+set the variable CXX (g++ is the preferred compiler). Ex.:
+
+  $ export CXX=g++
+
+If you want to add compiler options define variable STMM_CPP_OPTIONS.
+Ex. (-Wsuggest-override is g++ only):
+
+  $ export STMM_CPP_OPTIONS="-Wsuggest-override -Werror"
+
+If you want to define "make" options define variable STMM_MAKE_OPTIONS.
+Ex. (speed up compilation by using at most 2 CPUs):
+
+  $ export STMM_MAKE_OPTIONS="--jobs=2"
+
 If you want to install to your home folder (~/usr) instead of system wide
 
   $ ./scripts/install_stmm-input-bt-all.py  --destdir /home/myname/usr  --no-sudo

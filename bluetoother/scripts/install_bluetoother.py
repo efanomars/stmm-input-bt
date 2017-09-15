@@ -59,7 +59,7 @@ def main():
 	os.chdir("build")
 
 	subprocess.check_call("cmake {} {} ..".format(sBuildType, sDestDir).split())
-	subprocess.check_call("make".split())
+	subprocess.check_call("make $STMM_MAKE_OPTIONS", shell=True)
 	subprocess.check_call("{} make install".format(sSudo).split())
 
 

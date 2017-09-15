@@ -108,7 +108,7 @@ int bluetootherMain(int argc, char** argv)
 		argv[0] = argvZeroSave;
 	}
 
-	const Glib::ustring sAppName = "ch.efanomars.bluetoother";
+	const Glib::ustring sAppName = "com.github.efanomars.bluetoother";
 	const Glib::ustring sWindoTitle = "bluetoother " + Config::getVersionString();
 
 	Glib::RefPtr<Gtk::Application> refApp;
@@ -122,14 +122,20 @@ int bluetootherMain(int argc, char** argv)
 	if (getuid() != 0) {
 		// not root
 		
-		Gtk::MessageDialog oDlg("This program needs administrative privileges (sudo)", false
-								, Gtk::MESSAGE_WARNING, Gtk::BUTTONS_OK, false);
+		// Gtk::MessageDialog oDlg("Starting \"bluetoother\" without administrative privileges.\n"
+		// 						"Some of the functions might not work correctly.\n"
+		// 						"It's recommended to use sudo or gksu to start this program.", false
+		// 						, Gtk::MESSAGE_WARNING, Gtk::BUTTONS_OK, false);
+ 		Gtk::MessageDialog oDlg("This program needs administrative privileges.\n"
+								"Please start it with either\n"
+								"'sudo bluetoother' or 'gksu bluetoother'.", false
+ 								, Gtk::MESSAGE_WARNING, Gtk::BUTTONS_OK, false);
 		oDlg.run();
-		return EXIT_FAILURE; //-------------------------------------------------
+ 		return EXIT_FAILURE; //-------------------------------------------------
 	}
 	// service
 	BtService oService{};
-	// client model
+	// hci model
 	HciSocket oSocket{};
 
 	TootherWindow oWindow(sWindoTitle, oService, oSocket);
