@@ -10,7 +10,17 @@ a script is provided to compile and install all the binaries.
 
 for a description of all available options.
 
-Usage examples:
+But before calling the install script, googletest must be setup.
+If you cloned the repository with git, call
+
+  $ git submodule update --init --recursive
+
+if you downloaded the zip file and you already have the googletest sources, call
+
+  $ ./scripts/googletest_create_links.py --google-src-dir=/path/to/googletest/dir
+
+
+Install script usage example:
 
   $ ./scripts/install_stmm-input-bt-all.py  -b Debug  --destdir /usr/local
 
@@ -25,12 +35,12 @@ set the variable CXX (g++ is the preferred compiler). Ex.:
 
   $ export CXX=g++
 
-If you want to add compiler options define variable STMM_CPP_OPTIONS.
+If you want to add compiler options, define variable STMM_CPP_OPTIONS.
 Ex. (-Wsuggest-override is g++ only):
 
   $ export STMM_CPP_OPTIONS="-Wsuggest-override -Werror"
 
-If you want to define "make" options define variable STMM_MAKE_OPTIONS.
+If you want to define "make" options, define variable STMM_MAKE_OPTIONS.
 Ex. (speed up compilation by using at most 2 CPUs):
 
   $ export STMM_MAKE_OPTIONS="--jobs=2"
@@ -49,6 +59,7 @@ and make sure needed bash environment variables are set before the call
   export LIBRARY_PATH=/home/myname/usr/lib
   # to find executable
   export PATH=/home/myname/usr/bin:$PATH
+
 
 Uninstallation
 ==============

@@ -92,7 +92,7 @@ create a symbolic link to them. From this directory:
 To do the last operation, automatically checking if the directory really contains
 googletest, you can call the following script from the parent of this directory
 
-  $ googletest_create_links.py --google-src-dir=/path/to/googletest/dir
+  $ ./scripts/googletest_create_links.py --google-src-dir=/path/to/googletest/dir
 
 which will create the symbolic link for all the sub-projects with tests.
 
