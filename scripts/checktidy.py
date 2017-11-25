@@ -52,7 +52,6 @@ def main():
 	os.chdir(sScriptDir)
 	os.chdir("..")
 	#
-	callTidy("bluetoother")
 	callTidy("libstmm-input-gtk-bt")
 	callTidy("stmm-input-bttest")
 

@@ -5,9 +5,6 @@ Keyboard like devices for stmm-input framework connected over bluetooth.
 
 This source package contains:
 
-- bluetoother:
-    GUI tool to fine-tune bluetooth adpter connectivity for systemd and bluez.
-
 - libstmm-input-gtk-bt:
     library that implements a device manager that integrates into Gtk's
     main event loop sending key events from bluetooth devices to listeners.
@@ -18,7 +15,7 @@ This source package contains:
 
 - stmm-input-bttest:
     test client that connects to the server defined in libstmm-input-gtk-bt.
-    It simulates a very trivial keyboard.
+    It simulates a very trivial keyboard using mouse or touch.
 
 
 Read the INSTALL file for installation instructions.

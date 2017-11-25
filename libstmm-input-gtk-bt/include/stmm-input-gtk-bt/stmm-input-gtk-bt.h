@@ -21,7 +21,7 @@
 #ifndef STMI_STMM_INPUT_GTK_BT_H
 #define STMI_STMM_INPUT_GTK_BT_H
 
-/* This file includes all headers of the stmm-input-gtk-dm library. */
+/* This file includes all headers of the stmm-input-gtk-bt library. */
 
 #include "btgtkdevicemanager.h"
 

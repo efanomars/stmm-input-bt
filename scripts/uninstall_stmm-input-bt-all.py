@@ -61,8 +61,6 @@ def main():
 	else:
 		sSudo = ""
 
-	subprocess.check_call("./bluetoother/scripts/uninstall_bluetoother.py -y {} --destdir {}  {}"\
-						.format(sRemoveBuilds, sDestDir, sSudo).split())
 	subprocess.check_call("./libstmm-input-gtk-bt/scripts/uninstall_libstmm-input-gtk-bt.py -y {} --destdir {}  {}"\
 						.format(sRemoveBuilds, sDestDir, sSudo).split())
 	subprocess.check_call("./stmm-input-bttest/scripts/uninstall_stmm-input-bttest.py -y {} --destdir {}  {}"\

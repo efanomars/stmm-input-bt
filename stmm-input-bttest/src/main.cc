@@ -24,6 +24,7 @@
 #include "bttestwindow.h"
 
 #include <gtkmm.h>
+#include <gconfmm.h>
 
 #include <cassert>
 #include <iostream>
@@ -216,6 +217,7 @@ int bttestMain(int argc, char** argv)
 		try {
 			//
 			Glib::RefPtr<Gtk::Application> refApp = Gtk::Application::create(argc, argv, sAppName);
+			Gnome::Conf::init();
 			BttestWindow oWindow(sWindoTitle, oClient, oServers);
 			nRet = refApp->run(oWindow);
 		} catch (const std::runtime_error& oErr) {

@@ -60,8 +60,6 @@ list(APPEND STMMI_GTK_BT_EXTRA_LIBS
 string(STRIP "${STMMI_GTK_BT_EXTRA_LIBS}"         STMMI_GTK_BT_EXTRA_LIBS)
 string(STRIP "${STMMI_GTK_BT_EXTRA_INCLUDE_DIRS}" STMMI_GTK_BT_EXTRA_INCLUDE_DIRS)
 
-include_directories("${STMMI_GTK_BT_EXTRA_INCLUDE_DIRS}")
-
 # Headers dir
 set(STMMI_INCLUDE_DIR  "${PROJECT_SOURCE_DIR}/include")
 set(STMMI_HEADERS_DIR  "${STMMI_INCLUDE_DIR}/stmm-input-gtk-bt")
@@ -88,6 +86,10 @@ set(STMMI_SOURCES
         ${STMMI_SOURCES_DIR}/btgtkdevicemanager.cc
         ${STMMI_SOURCES_DIR}/btgtkkeysdevice.h
         ${STMMI_SOURCES_DIR}/btgtkkeysdevice.cc
+        ${STMMI_SOURCES_DIR}/btgtklistenerextradata.h
+        ${STMMI_SOURCES_DIR}/btgtkwindowdata.h
+        ${STMMI_SOURCES_DIR}/keypacket.h
+        ${STMMI_SOURCES_DIR}/recycler.h
         )
 if (BUILD_SHARED_LIBS)
     set(STMMI_SOURCES  ${STMMI_SOURCES}
@@ -97,6 +99,8 @@ endif()
 
 # Define library
 add_library(stmm-input-gtk-bt ${STMMI_SOURCES} ${PROJECT_BINARY_DIR}/stmm-input-gtk-bt-config.cc)
+
+include_directories(SYSTEM "${STMMI_GTK_BT_EXTRA_INCLUDE_DIRS}")
 
 DefineTargetPublicCompileOptions(stmm-input-gtk-bt)
 
@@ -116,6 +120,8 @@ configure_file("${PROJECT_SOURCE_DIR}/stmm-input-gtk-bt.pc.in"
 include(GNUInstallDirs)
 set(STMMI_PLUGINS_DATA_DIR "${CMAKE_INSTALL_FULL_DATADIR}/stmm-input-dl")
 set(STMMI_PLUGINS_USER_DATA_DIR "$ENV{HOME}/.local/${CMAKE_INSTALL_DATADIR}/stmm-input-dl")
+
+set_target_properties(stmm-input-gtk-bt PROPERTIES  ${STMMI_BUILD_TYPE}_POSTFIX "")
 
 set(STMMI_GTK_BT_INSTALL_LIB_PATH1 "${CMAKE_INSTALL_PREFIX}/lib/libstmm-input-gtk-bt.so")
 set(STMMI_GTK_BT_INSTALL_LIB_PATH2 "${CMAKE_INSTALL_PREFIX}/lib/libstmm-input-gtk-bt.so.${STMM_INPUT_GTK_BT_MAJOR_VERSION}")

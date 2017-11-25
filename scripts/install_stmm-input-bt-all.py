@@ -88,11 +88,6 @@ def main():
 
 	sInfo = " " + oArgs.sBuildType + " == static " + oArgs.sBuildStaticLib + " "
 
-	print("== install bluetoother =========" + sInfo + "==")
-	os.chdir("bluetoother/scripts")
-	subprocess.check_call("./install_bluetoother.py {} {} {}".format(sBuildType, sDestDir, sSudo).split())
-	os.chdir("../..")
-
 	print("== install libstmm-input-gtk-bt ======" + sInfo + "==")
 	os.chdir("libstmm-input-gtk-bt/scripts")
 	subprocess.check_call("./install_libstmm-input-gtk-bt.py {} {} {} {} {} {} {} {}".format(\

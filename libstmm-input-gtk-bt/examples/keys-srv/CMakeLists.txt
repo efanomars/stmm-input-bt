@@ -23,7 +23,7 @@ list(APPEND KEYS_SRV_EXTRA_INCLUDE_DIRS   ${STMMINPUTGTKBT_INCLUDE_DIRS})
 list(APPEND KEYS_SRV_EXTRA_LIBS           ${STMMINPUTGTKBT_LIBRARIES})
 
 # Add include directories of used libraries
-include_directories("${KEYS_SRV_EXTRA_INCLUDE_DIRS}")
+include_directories(SYSTEM "${KEYS_SRV_EXTRA_INCLUDE_DIRS}")
 
 # Source and headers files
 set(KEYS_SRV_SOURCES

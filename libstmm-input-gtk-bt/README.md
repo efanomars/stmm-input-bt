@@ -43,7 +43,7 @@ which should output something like
            Soft blocked: no
            Hard blocked: no
 
-If it's hard blocked you need to unblock it in your BIOS settings.
+If it's hard blocked you need to unblock it manually on your computer.
 If it's soft blocked use rfkill itself to unblock it (rfkill --help).
 
 Second: make sure the bluetooth service is running

@@ -25,8 +25,7 @@ import subprocess
 from datetime import date
 
 def main():
-	aProjDirs = ["bluetoother"
-				, "libstmm-input-gtk-bt"
+	aProjDirs = ["libstmm-input-gtk-bt"
 				, "libstmm-input-gtk-bt/examples/keys-srv"
 				, "stmm-input-bttest"]
 

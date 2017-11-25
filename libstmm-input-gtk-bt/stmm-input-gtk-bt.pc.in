@@ -6,7 +6,7 @@ libdir=${exec_prefix}/lib
 includedir=${prefix}/include
 
 Name: stmm-input-gtk-bt
-Description: Gtk main loop for connected bluetooth devices
+Description: Gtk main loop based device manager for connected bluetooth devices-
 Version: @STMM_INPUT_GTK_BT_VERSION@
 URL: https://github.com/efanomars/stmm-input
 # Beware! The space between the library name and the comparison (>=) is necessary!

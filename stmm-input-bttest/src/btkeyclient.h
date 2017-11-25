@@ -60,13 +60,11 @@ public:
 		, STATE_CONNECTING = 1
 		, STATE_CONNECTED = 2
 		, STATE_SENDING = 3
-//		, STATE_DISCONNECTING = 9
 		, STATE_REMOVING = 10 // Removing the virtual plug
 	};
 
 	STATE getState() const { return m_eState; }
 	const std::string& getError() const { return m_sLastError; }
-//	bool isKeySendBufferEmpty() { return m_aBufferedKeys.isEmpty(); }
 	/** Connect to a BtKey server.
 	 * 
 	 * @param oBtAddr The address.
@@ -74,7 +72,6 @@ public:
 	void connectToServer(const bdaddr_t& oBtAddr, int32_t nL2capPort);
 	void disconnectFromServer();
 	void sendRemoveToServer();
-//	void sendDisconnectToServer();
 
 	void sendKeyToServer(hk::KEY_INPUT_TYPE eType, hk::HARDWARE_KEY eKey);
 	
@@ -91,7 +88,7 @@ private:
 	bool doIntervalTimeout();
 	//
 	void disconnectInternal(const std::string& sErrorString);
-	void sendPacketsfromBufferedKeys();
+	void sendPacketsFromBufferedKeys();
 private:
 	const int32_t m_nTimeoutConnect;
 	const int32_t m_nTimeoutSend;

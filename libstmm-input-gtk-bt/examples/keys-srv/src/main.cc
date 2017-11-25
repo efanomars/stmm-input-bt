@@ -81,7 +81,7 @@ int keysSrvMain(int argc, char** argv)
 				std::cout << "  ";
 				bFirst = false;
 			}
-			std::cout << "(" << (int32_t)eHardwareKey << ",";
+			std::cout << "(" << static_cast<int32_t>(eHardwareKey) << ",";
 			if (eType == stmi::Event::AS_KEY_PRESS) {
 				std::cout << "PRESS";
 			} else if (eType == stmi::Event::AS_KEY_RELEASE) {

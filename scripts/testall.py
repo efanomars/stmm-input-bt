@@ -78,7 +78,9 @@ def checkTidy():
 def main():
 
 	import argparse
-	oParser = argparse.ArgumentParser(description="Uninstall, compile, document, reinstall and test all projects")
+	oParser = argparse.ArgumentParser(description="Uninstall, compile, document, reinstall and test all projects.\n"\
+						+ "Be aware that building statically against depending shared library stmm-input (et all)\n"\
+						+ "and viceversa, might cause linkage problems.")
 	oParser.add_argument("-y", "--no-prompt", help="no prompt comfirmation", action="store_true"\
 						, default=False, dest="bNoPrompt")
 	oParser.add_argument("--destdir", help="install dir (default=/usr/local)", metavar='DESTDIR'\

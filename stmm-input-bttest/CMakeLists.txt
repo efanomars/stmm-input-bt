@@ -26,12 +26,14 @@ set(STMM_INPUT_BTTEST_VERSION "${STMM_INPUT_BTTEST_MAJOR_VERSION}.${STMM_INPUT_B
 
 set(GTKMM_VERSION_REQ "3.14.0")
 set(BLUETOOTH_VERSION_REQ "5.23")
+set(GCONFMM_VERSION_REQ "2.28")
 
 pkg_check_modules(GTKMM       REQUIRED  gtkmm-3.0>=${GTKMM_VERSION_REQ})
 pkg_check_modules(BLUETOOTH   REQUIRED  bluez>=${BLUETOOTH_VERSION_REQ})
+pkg_check_modules(GCONFMM     REQUIRED  gconfmm-2.6>=${GCONFMM_VERSION_REQ})
 
-list(APPEND STMMI_BTTEST_EXTRA_INCLUDE_DIRS   ${GTKMM_INCLUDE_DIRS} ${BLUETOOTH_INCLUDE_DIRS} )
-list(APPEND STMMI_BTTEST_EXTRA_LIBS           ${GTKMM_LIBRARIES}    ${BLUETOOTH_LIBRARIES}    )
+list(APPEND STMMI_BTTEST_EXTRA_INCLUDE_DIRS   ${GTKMM_INCLUDE_DIRS} ${BLUETOOTH_INCLUDE_DIRS} ${GCONFMM_INCLUDE_DIRS})
+list(APPEND STMMI_BTTEST_EXTRA_LIBS           ${GTKMM_LIBRARIES}    ${BLUETOOTH_LIBRARIES}    ${GCONFMM_LIBRARIES})
 
 string(STRIP "${STMMI_BTTEST_EXTRA_LIBS}"         STMMI_BTTEST_EXTRA_LIBS)
 string(STRIP "${STMMI_BTTEST_EXTRA_INCLUDE_DIRS}" STMMI_BTTEST_EXTRA_INCLUDE_DIRS)
@@ -50,8 +52,16 @@ set(STMMI_BTTEST_SOURCES
         ${PROJECT_SOURCE_DIR}/src/bttestwindow.cc
         ${PROJECT_SOURCE_DIR}/src/circularbuffer.h
         ${PROJECT_SOURCE_DIR}/src/config.h
-        ${PROJECT_SOURCE_DIR}/src/main.cc
+        ${PROJECT_SOURCE_DIR}/src/inputstrings.h
+        ${PROJECT_SOURCE_DIR}/src/inputstrings.cc
+        ${PROJECT_SOURCE_DIR}/src/keyboarddialog.h
+        ${PROJECT_SOURCE_DIR}/src/keyboarddialog.cc
+        ${PROJECT_SOURCE_DIR}/src/keydialog.h
+        ${PROJECT_SOURCE_DIR}/src/keydialog.cc
         ${PROJECT_SOURCE_DIR}/src/keypacket.h
+        ${PROJECT_SOURCE_DIR}/src/main.cc
+        ${PROJECT_SOURCE_DIR}/src/weightdialog.h
+        ${PROJECT_SOURCE_DIR}/src/weightdialog.cc
         )
 set(STMMI_BTTEST_DATA_FILES
 #         ${PROJECT_SOURCE_DIR}/data/buoy_32313.png
@@ -59,7 +69,7 @@ set(STMMI_BTTEST_DATA_FILES
 
 add_executable(stmm-input-bttest ${STMMI_BTTEST_SOURCES} ${PROJECT_BINARY_DIR}/config.cc)
 
-target_include_directories(stmm-input-bttest PUBLIC ${STMMI_BTTEST_EXTRA_INCLUDE_DIRS})
+target_include_directories(stmm-input-bttest SYSTEM PUBLIC ${STMMI_BTTEST_EXTRA_INCLUDE_DIRS})
 
 DefineTargetPublicCompileOptions(stmm-input-bttest)
 

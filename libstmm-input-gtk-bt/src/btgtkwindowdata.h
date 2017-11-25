@@ -23,7 +23,7 @@
 
 #include "btgtkdevicemanager.h"
 
-#include "private-recycler.h"
+#include "recycler.h"
 
 #include <gtkmm.h>
 

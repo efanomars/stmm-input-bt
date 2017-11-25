@@ -79,9 +79,10 @@ void BtKeyServers::addExtraServer(std::vector<ServerInfo>& aServers)
 bool BtKeyServers::isValidPort(int32_t nL2capPort)
 {
 	if (! ((nL2capPort >= 4097) && (nL2capPort <= 32765))) {
-		if (nL2capPort % 2 == 0) {
-			return false; //----------------------------------------------------
-		}
+		return false; //--------------------------------------------------------
+	}
+	if (nL2capPort % 2 == 0) {
+		return false; //--------------------------------------------------------
 	}
 	return true;
 }

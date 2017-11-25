@@ -246,12 +246,11 @@ bool BlueServerReceiveSource::closeConnection(sigc::slot_base* p0Slot, bool bRem
 	}
 	::close(m_nClientFD);
 	m_nClientFD = -1;
-//	oPkt.m_nCmd = (bRemove ? PACKET_CMD_REMOVE_DEVICE : PACKET_CMD_DISCONNECT_DEVICE);
 	bool bContinue = false;
 	if (p0Slot != nullptr) {
 		bContinue = (*static_cast<sigc::slot<bool, int32_t, bool, const KeyPacket&>*>(p0Slot))
 													(m_nBackendId, bRemove, oPkt);
-		assert(!bContinue);
+		//assert(!bContinue);
 	}
 	return bContinue;
 }

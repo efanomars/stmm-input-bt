@@ -30,7 +30,7 @@ The first parameter can also be 'Release', 'MinSizeRel' or 'RelWithDebInfo'
 (see cmake documentation).
 The second parameter can be omitted ('/usr/local' is the default).
 
-If you want to determine the compiler that the scripts should use,
+If you want to determine the compiler that the scripts (cmake) should use,
 set the variable CXX (g++ is the preferred compiler). Ex.:
 
   $ export CXX=g++
@@ -40,7 +40,7 @@ Ex. (-Wsuggest-override is g++ only):
 
   $ export STMM_CPP_OPTIONS="-Wsuggest-override -Werror"
 
-If you want to define "make" options, define variable STMM_MAKE_OPTIONS.
+If you want to define "make" options, set variable STMM_MAKE_OPTIONS.
 Ex. (speed up compilation by using at most 2 CPUs):
 
   $ export STMM_MAKE_OPTIONS="--jobs=2"
@@ -79,11 +79,8 @@ removes the build subfolder of each project.
 Dependencies
 ============
 
-- bluetoother
-    + libgtkmm-3.0-dev
-    + libbluetooth-dev
-
 - libstmm-input-gtk-bt
+    + libstmm-input-ev
     + libstmm-input-gtk
     + libbluetooth-dev
 

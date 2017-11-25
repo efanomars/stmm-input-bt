@@ -182,7 +182,7 @@ bool BtKeyClient::doPendingSend(int32_t nSourceId, bool bError)
 	if (! m_aBufferedKeys.isEmpty()) {
 		// but a buffer of keys accumulated in the meantime
 		// TODO send it now or issue a timeout of 0?
-		sendPacketsfromBufferedKeys();
+		sendPacketsFromBufferedKeys();
 	} else {
 		m_eState = STATE_CONNECTED;
 		m_oStateChangedSignal();
@@ -229,10 +229,10 @@ void BtKeyClient::sendKeyToServer(hk::KEY_INPUT_TYPE eType, hk::HARDWARE_KEY eKe
 			m_aBufferedKeys.read();
 		}
 		m_aBufferedKeys.write(std::make_pair(eType, eKey));
-		sendPacketsfromBufferedKeys();
+		sendPacketsFromBufferedKeys();
 	}
 }
-void BtKeyClient::sendPacketsfromBufferedKeys()
+void BtKeyClient::sendPacketsFromBufferedKeys()
 {
 	const auto eOldState = m_eState;
 
@@ -242,15 +242,13 @@ void BtKeyClient::sendPacketsfromBufferedKeys()
 		const auto oPair = m_aBufferedKeys.read();
 		hk::KEY_INPUT_TYPE eType = oPair.first;
 		hk::HARDWARE_KEY eKey = oPair.second;
+//std::cout << "BtKeyClient::sendPacketsFromBufferedKeys  eType=" << static_cast<int32_t>(eType) << "  eKey=" << static_cast<int32_t>(eKey) << '\n';
 		auto& oKeyPacket = m_aPackets[m_nTotPackets];
 		oKeyPacket.m_nMagic1 = s_nMagic1; // '7';
 		oKeyPacket.m_nMagic2 = s_nMagic2; // 'A';
 		if (eType == hk::KEY_REMOVE_DEVICE) {
 			oKeyPacket.m_nCmd = PACKET_CMD_REMOVE_DEVICE;
 			eNewState = STATE_REMOVING;
-//		} else if (eType == hk::KEY_DISCONNECT_DEVICE) {
-//			oKeyPacket.m_nCmd = PACKET_CMD_DISCONNECT_DEVICE;
-//			eNewState = STATE_DISCONNECTING;
 		} else if (eType == hk::KEY_NOOP) {
 			oKeyPacket.m_nCmd = PACKET_CMD_NOOP;
 		} else {
@@ -260,9 +258,14 @@ void BtKeyClient::sendPacketsfromBufferedKeys()
 		}
 		++m_nTotPackets;
 	}
+//std::cout << "BtKeyClient::sendPacketsFromBufferedKeys  m_nTotPackets=" << m_nTotPackets << '\n';
 	const auto nRes = ::send(m_nClientFD, m_aPackets, sizeof(KeyPacket) * m_nTotPackets, 0);
 	if (nRes < 0) {
+#if (EAGAIN == EWOULDBLOCK)
+		if (errno == EAGAIN) {
+#else
 		if ((errno == EAGAIN) || (errno == EWOULDBLOCK)) {
+#endif
 			if (!m_refPendingSend) {
 				m_refPendingSend = Glib::RefPtr<PendingWriteSource>{ new PendingWriteSource(m_nClientFD) };
 				m_refPendingSend->connect(sigc::mem_fun(this, &BtKeyClient::doPendingSend));
@@ -270,11 +273,6 @@ void BtKeyClient::sendPacketsfromBufferedKeys()
 			}
 			m_nStartedSendingTime = m_refIntervalTimeout->getElapsed();
 			m_eState = eNewState;
-//			if (bRemovingDevice) {
-//				m_eState = STATE_REMOVING;
-//			} else {
-//				m_eState = STATE_SENDING;
-//			}
 			if (eOldState != m_eState) {
 				m_oStateChangedSignal();
 			}
@@ -307,7 +305,7 @@ void BtKeyClient::sendRemoveToServer()
 		m_aBufferedKeys.clear();
 	}
 	m_aBufferedKeys.write(std::make_pair(hk::KEY_REMOVE_DEVICE, hk::HK_NULL));
-	sendPacketsfromBufferedKeys();
+	sendPacketsFromBufferedKeys();
 }
 //void BtKeyClient::sendDisconnectToServer()
 //{
@@ -316,7 +314,7 @@ void BtKeyClient::sendRemoveToServer()
 //		return;
 //	}
 //	m_aBufferedKeys.write(std::make_pair(hk::KEY_DISCONNECT_DEVICE, hk::HK_NULL));
-//	sendPacketsfromBufferedKeys();
+//	sendPacketsFromBufferedKeys();
 //}
 bool BtKeyClient::doIntervalTimeout()
 {
@@ -333,7 +331,7 @@ bool BtKeyClient::doIntervalTimeout()
 		if ((m_nNoopAfter > 0) && (nElapsed - m_nLastSentTime > std::max(m_nNoopAfter, m_nTimeoutSend * 2))) {
 			assert(m_aBufferedKeys.isEmpty());
 			m_aBufferedKeys.write(std::make_pair(hk::KEY_NOOP, hk::HK_NULL));
-			sendPacketsfromBufferedKeys();
+			sendPacketsFromBufferedKeys();
 		}
 	} else if (m_eState == STATE_SENDING) {
 		if (nElapsed - m_nStartedSendingTime > m_nTimeoutSend) {
