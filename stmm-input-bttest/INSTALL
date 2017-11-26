@@ -6,7 +6,7 @@ Requirements
 ------------
 g++ compiler or compatible (>= C++14)
 pthreads
-libgtkmm3.0-dev
+libgtkmm-3.0-dev
 libbluetooth-dev
 libgconfmm2.6-dev
 
