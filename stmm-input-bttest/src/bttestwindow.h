@@ -41,6 +41,8 @@ class BttestWindow : public Gtk::Window
 public:
 	BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient, BtKeyServers& oBtKeyServers);
 	virtual ~BttestWindow();
+
+	void saveStateToConfig();
 private:
 	void onNotebookSwitchPage(Gtk::Widget*, guint nPageNum);
 	void onServerSelectionChanged();
@@ -101,7 +103,6 @@ private:
 	void onSpinExitInCellRowChanged();
 	void onKeysLogSentKeysChanged();
 
-	void saveStateToConfig();
 	void loadStateFromConfig();
 
 private:

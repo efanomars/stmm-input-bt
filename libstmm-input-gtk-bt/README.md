@@ -79,10 +79,7 @@ The mentioned commands can be found in (Debian Stretch, Linux Mint 18) packages:
 The btkeys protocol
 -------------------
 
-Currently the server listens for connections on L2CAP port 8353 (0x20A1).
-In the future, the server might listen to a random free port and publish it
-through SDP (bluetooth's Service Discovery Protocol) so that more than one
-server can run simultaneously on a computer.
+The server listens for connections on L2CAP port 8353 (0x20A1).
 
 Once a client successfully connects, it starts to send packets of the format
 

@@ -362,7 +362,6 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 }
 BttestWindow::~BttestWindow()
 {
-	saveStateToConfig();
 }
 void BttestWindow::setSensitivityForState()
 {
@@ -386,8 +385,8 @@ void BttestWindow::onNotebookSwitchPage(Gtk::Widget*, guint nPageNum)
 	if (nPageNum >= s_nTotPages) {
 		return;
 	}
-//	if (nPageNum == m_aPageIndex[s_nTabEdit]) {
-//	}
+	//if (nPageNum == m_aPageIndex[s_nTabEdit]) {
+	//}
 }
 void BttestWindow::onServerSelectionChanged()
 {

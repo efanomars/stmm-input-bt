@@ -220,6 +220,8 @@ int bttestMain(int argc, char** argv)
 			Gnome::Conf::init();
 			BttestWindow oWindow(sWindoTitle, oClient, oServers);
 			nRet = refApp->run(oWindow);
+			// Save "preferences"
+			oWindow.saveStateToConfig();
 		} catch (const std::runtime_error& oErr) {
 			std::cout << "Error: " << oErr.what() << '\n';
 			nRet = EXIT_FAILURE;

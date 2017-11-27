@@ -43,10 +43,8 @@ shared_ptr<BtGtkDeviceManager> BtGtkDeviceManager::create(const std::string& sAp
 														, bool bEnableEventClasses, const std::vector<Event::Class>& aEnDisableEventClasses)
 {
 	shared_ptr<BtGtkDeviceManager> refInstance(new BtGtkDeviceManager(bEnableEventClasses, aEnDisableEventClasses));
+	// might throw!
 	unique_ptr<GtkBackend> refBackend = GtkBackend::create(refInstance.operator->(), sAppName);
-	if (!refBackend) {
-		return shared_ptr<BtGtkDeviceManager>{};
-	}
 	auto refFactory = std::make_unique<GtkWindowDataFactory>();
 	refInstance->init(refFactory, refBackend);
 	return refInstance;

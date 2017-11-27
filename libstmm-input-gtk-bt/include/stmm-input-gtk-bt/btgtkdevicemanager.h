@@ -70,6 +70,7 @@ public:
 	 * @param bEnableEventClasses Whether to enable or disable all but aEnDisableEventClasses.
 	 * @param aEnDisableEventClasses The event classes to be enabled or disabled according to bEnableEventClasses.
 	 * @return The created instance. Cannot be null.
+	 * @throws std::runtime_error is if an error occurs (example: couldn't create bluetooth server).
 	 */
 	static shared_ptr<BtGtkDeviceManager> create(const std::string& sAppName
 												, bool bEnableEventClasses, const std::vector<Event::Class>& aEnDisableEventClasses);

@@ -50,10 +50,7 @@ static const int32_t s_nL2capPort = 0x20A1;
 unique_ptr<GtkBackend> GtkBackend::create(BtGtkDeviceManager* p0Owner, const std::string& sAppName)
 {
 	auto refBackend = std::unique_ptr<GtkBackend>(new GtkBackend(p0Owner, sAppName));
-	const bool bOk = refBackend->initServer();
-	if (!bOk) {
-		refBackend.reset();
-	}
+	refBackend->initServer();
 	return refBackend;
 }
 
@@ -73,14 +70,14 @@ GtkBackend::~GtkBackend()
 	}
 	std::cout << "Bluetooth btkeys server stopped on L2CAP port " << s_nL2capPort << '\n';
 }
-bool GtkBackend::initServer()
+void GtkBackend::initServer()
 {
 	//TODO pass -1 and let the bind choose the port
 	// then spawn a SDP entry process to publicize the port
 	m_refServerAccept = Glib::RefPtr<BlueServerAcceptSource>(new BlueServerAcceptSource(s_nL2capPort));
 	if (! m_refServerAccept->getErrorStr().empty()) {
-		std::cerr << "Bt::GtkBackend::initServer() bluetooth error:\n -> " << m_refServerAccept->getErrorStr() << '\n';
-		return false; //--------------------------------------------------------
+		std::string sError = "Bluetooth error (initServer):\n -> " + m_refServerAccept->getErrorStr();
+		throw std::runtime_error(sError); //------------------------------------
 	}
 	if (! m_sAppName.empty()) {
 		std::cout << m_sAppName << ": ";
@@ -88,7 +85,6 @@ bool GtkBackend::initServer()
 	std::cout << "Bluetooth btkeys server started on L2CAP port " << s_nL2capPort << '\n';
 	m_refServerAccept->connect(sigc::mem_fun(this, &GtkBackend::doServerAcceptClient));
 	m_refServerAccept->attach();
-	return true;
 }
 int32_t GtkBackend::getBackendId(const std::vector<bdaddr_t>& aAddrs, const bdaddr_t& oBdAddr)
 {

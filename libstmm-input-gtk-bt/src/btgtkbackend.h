@@ -53,13 +53,16 @@ class KeyPacket;
 class GtkBackend
 {
 public:
+	// returns backend. Cannot be null.
+	// throws std::runtime_error
 	static unique_ptr<GtkBackend> create(BtGtkDeviceManager* p0Owner, const std::string& sAppName);
 
 	virtual ~GtkBackend();
 protected:
 	//friend unique_ptr<GtkBackend> create(BtGtkDeviceManager* p0Owner, const std::string& sAppName);
 	GtkBackend(BtGtkDeviceManager* p0Owner, const std::string& sAppName);
-	bool initServer();
+	// throws
+	void initServer();
 
 	// For FakeGtkBackend
 	void onDeviceRemoved(int32_t nBackendId)
