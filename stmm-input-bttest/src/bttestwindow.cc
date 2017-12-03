@@ -25,9 +25,7 @@
 #include <cassert>
 #include <iostream>
 
- #include <gconfmm.h>
-#include <gtkmm-3.0/gtkmm/button.h>
-#include <gtkmm-2.4/gtkmm/misc.h>
+#include <gconfmm.h>
 
 namespace stmi
 {
