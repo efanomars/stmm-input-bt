@@ -83,6 +83,7 @@ private:
 
 private:
 	BttestWindow& m_oBttestWindow;
+	std::string m_sNullKey;
 
 	sigc::connection m_oIsActiveConn;
 

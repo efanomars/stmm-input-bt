@@ -26,8 +26,7 @@ namespace stmi
 void InputStrings::initKeyMap()
 {
 	// Generate:
-	// from <stmm-input/hardwarekey.h> file copy all keys,
-	// remove line 'HK_NULL = 0' (the first enum)
+	// from <stmm-input/hardwarekey.h> file copy all keys
 	// and transform each line:
 	//	, HK_XXX = n
 	// to:
@@ -36,6 +35,7 @@ void InputStrings::initKeyMap()
 	//   Find:     <^	, HK_([^ ]+).*$>
 	//   Replace:  <	addKey(stmi::hk::HK_\1, "\1");>
 
+	addKey(stmi::hk::HK_NULL, "NULL");
 	addKey(stmi::hk::HK_ESC, "ESC");
 	addKey(stmi::hk::HK_1, "1");
 	addKey(stmi::hk::HK_2, "2");

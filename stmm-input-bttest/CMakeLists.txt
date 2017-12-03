@@ -42,6 +42,8 @@ string(STRIP "${STMMI_BTTEST_EXTRA_INCLUDE_DIRS}" STMMI_BTTEST_EXTRA_INCLUDE_DIR
 set(STMMI_BTTEST_SOURCES
         ${PROJECT_SOURCE_DIR}/src/main.cc
         #
+        ${PROJECT_SOURCE_DIR}/src/addrdialog.h
+        ${PROJECT_SOURCE_DIR}/src/addrdialog.cc
         ${PROJECT_SOURCE_DIR}/src/btclientsources.h
         ${PROJECT_SOURCE_DIR}/src/btclientsources.cc
         ${PROJECT_SOURCE_DIR}/src/btkeyclient.h
@@ -52,6 +54,7 @@ set(STMMI_BTTEST_SOURCES
         ${PROJECT_SOURCE_DIR}/src/bttestwindow.cc
         ${PROJECT_SOURCE_DIR}/src/circularbuffer.h
         ${PROJECT_SOURCE_DIR}/src/config.h
+        ${PROJECT_SOURCE_DIR}/src/hardwarekey.h
         ${PROJECT_SOURCE_DIR}/src/inputstrings.h
         ${PROJECT_SOURCE_DIR}/src/inputstrings.cc
         ${PROJECT_SOURCE_DIR}/src/keyboarddialog.h
@@ -64,7 +67,7 @@ set(STMMI_BTTEST_SOURCES
         ${PROJECT_SOURCE_DIR}/src/weightdialog.cc
         )
 set(STMMI_BTTEST_DATA_FILES
-#         ${PROJECT_SOURCE_DIR}/data/buoy_32313.png
+#         ${PROJECT_SOURCE_DIR}/data/x.png
         )
 
 add_executable(stmm-input-bttest ${STMMI_BTTEST_SOURCES} ${PROJECT_BINARY_DIR}/config.cc)

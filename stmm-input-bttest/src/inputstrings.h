@@ -41,12 +41,11 @@ public:
 		m_bInitialAdd = false;
 	}
 	/** Get the name string of a key.
-	 * @param eKey The key. Cannot be hk::HK_NULL.
+	 * @param eKey The key.
 	 * @return The name of the key or empty string if not found.
 	 */
 	inline const std::string& getKeyString(hk::HARDWARE_KEY eKey) const
 	{
-		assert(eKey != hk::HK_NULL);
 		auto itFind = m_oKeyStringMap.find(static_cast<int32_t>(eKey));
 		if (itFind == m_oKeyStringMap.end()) {
 			static const std::string s_sEmpty = "";
@@ -64,19 +63,19 @@ public:
 	}
 	/** Get the name corresponding to a key.
 	 * @param sName The name of the key.
-	 * @return The key or hk::HK_NULL if not found
+	 * @return The (true, key) or (false, hk::HK_NULL) if not found.
 	 */
-	hk::HARDWARE_KEY getStringKey(const std::string& sName) const
+	std::pair<bool, hk::HARDWARE_KEY> getStringKey(const std::string& sName) const
 	{
 		auto itFind = std::find_if(m_oKeyStringMap.begin(), m_oKeyStringMap.end()
 									, [&](const std::pair<int32_t, std::string>& oPair)
 		{
-										return (oPair.second == sName);
+			return (oPair.second == sName);
 		});
 		if (itFind == m_oKeyStringMap.end()) {
-			return hk::HK_NULL;
+			return std::make_pair(false, hk::HK_NULL);
 		}
-		return static_cast<hk::HARDWARE_KEY>(itFind->first);
+		return std::make_pair(true, static_cast<hk::HARDWARE_KEY>(itFind->first));
 	}
 private:
 	inline void addKey(hk::HARDWARE_KEY eKey, const std::string& sStr)

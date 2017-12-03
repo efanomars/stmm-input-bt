@@ -15,11 +15,11 @@
  * License along with this library; if not, see <http://www.gnu.org/licenses/>
  */
 /*
- * File:   weightdialog.h
+ * File:   addrdialog.h
  */
 
-#ifndef STMI_WEIGHT_DIALOG_H
-#define STMI_WEIGHT_DIALOG_H
+#ifndef STMI_ADDR_DIALOG_H
+#define STMI_ADDR_DIALOG_H
 
 #include <gtkmm.h>
 
@@ -28,43 +28,42 @@
 namespace stmi
 {
 
-class WeightDialog : public Gtk::Dialog
+class AddrDialog : public Gtk::Dialog
 {
 public:
-	WeightDialog(int32_t nMinWeight, int32_t nMaxWeight);
-	virtual ~WeightDialog();
+	AddrDialog();
+	virtual ~AddrDialog();
 
 	// Call this instead of run()
-	int run(int32_t nWeight, bool bColumn, int32_t nColRow);
+	int run(const std::string& sAddr);
 
 	// Call this after run(...) has returned s_nRetOk
-	int32_t getWeight() const;
+	// The returned address is always valid
+	const std::string& getAddr() const;
 
 	static constexpr int s_nRetOk = 1;
 	static constexpr int s_nRetCancel = 0;
 private:
-	void onSpinWeightChanged();
-
+	void onEntryAddrChanged();
+	void onErrorOneSecond();
 private:
-	Glib::RefPtr<Gtk::Adjustment> m_refAdjustmentWeight;
+	//Gtk::Box* m_p0VBoxAddr;
+		Gtk::Label* m_p0LabelAddrDesc;
+		Gtk::Entry* m_p0EntryAddr;
 
-	//Gtk::Box* m_p0VBoxWeight;
-		Gtk::Label* m_p0LabelWeightDesc;
-		Gtk::SpinButton* m_p0SpinWeight;
-
+	Glib::RefPtr<Gtk::EntryBuffer> m_refEntryBuffer;
 	////////////
-	int32_t m_nOldWeight; 
-	int32_t m_nWeight;
-	const int32_t m_nMinWeight;
-	const int32_t m_nMaxWeight;
+	std::string m_sOldAddr; 
+	std::string m_sAddr;
+
+	static const std::string s_sLabelStringNormal;
+	static const std::string s_sLabelStringError;
 
 	static constexpr int32_t s_nInitialWindowSizeW = 200;
 	static constexpr int32_t s_nInitialWindowSizeH = 100;
-private:
-	WeightDialog() = delete;
 };
 
 } // namespace stmi
 
-#endif /* STMI_WEIGHT_DIALOG_H */
+#endif /* STMI_ADDR_DIALOG_H */
 

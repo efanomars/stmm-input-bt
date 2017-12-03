@@ -68,7 +68,6 @@ KeyboardDialog::KeyboardDialog(BttestWindow& oBttestWindow, bool bFullScreen)
 
 	m_refPaCtx = Glib::wrap(gdk_pango_context_get());
 	m_refFontLayout = Pango::Layout::create(m_refPaCtx);
-
 }
 KeyboardDialog::~KeyboardDialog()
 {
@@ -86,6 +85,8 @@ void KeyboardDialog::onSigIsActiveChanged()
 }
 int KeyboardDialog::run(bool bFullscreen)
 {
+	m_sNullKey = m_oBttestWindow.m_oInputStrings.getKeyString(hk::HK_NULL);
+
 	Gdk::EventMask oAddEvMask = static_cast<Gdk::EventMask>(0);
 	oAddEvMask |= Gdk::KEY_PRESS_MASK;
 	oAddEvMask |= Gdk::KEY_RELEASE_MASK;
@@ -248,7 +249,9 @@ void KeyboardDialog::drawTextInRect(const Cairo::RefPtr<Cairo::Context>& refCc, 
 	const int32_t nIdx = nColumn + m_oBttestWindow.m_nTotColumns * nRow;
 	int32_t nTextW;
 	int32_t nTextH;
-	const double fTempRatio = calcRatio(nPixW, nPixH, m_oBttestWindow.m_aEditNames[nIdx]
+	const auto& sKeyName = m_oBttestWindow.m_aEditNames[nIdx];
+	const double fTempRatio = calcRatio(nPixW, nPixH
+										, ((sKeyName == m_sNullKey) ? "" : sKeyName)
 										, nTextW, nTextH);
 	const double fRatio = std::max<double>(std::min<double>(fMaxRatio, fTempRatio), fMinRatio);
 

@@ -26,6 +26,8 @@
 #include <iostream>
 
  #include <gconfmm.h>
+#include <gtkmm-3.0/gtkmm/button.h>
+#include <gtkmm-2.4/gtkmm/misc.h>
 
 namespace stmi
 {
@@ -45,6 +47,8 @@ const std::string BttestWindow::s_sConfKeyExitInCell = "exit_button_in_cell";
 const std::string BttestWindow::s_sConfKeyExitButtonInCellColumn = "exit_button_in_cell_column";
 const std::string BttestWindow::s_sConfKeyExitButtonInCellRow = "exit_button_in_cell_row";
 const std::string BttestWindow::s_sConfKeyLogSentKeys = "log_sent_keys";
+const std::string BttestWindow::s_sConfKeySelectedServerAddr = "selected_server_addr";
+const std::string BttestWindow::s_sConfKeySelectedServerPort = "selected_server_port";
 
 BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient, BtKeyServers& oBtKeyServers)
 : m_oBtKeyClient(oBtKeyClient)
@@ -177,11 +181,21 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 
 		Gtk::Box* m_p0VBoxConnection = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL));
 		m_p0VBoxServers->pack_start(*m_p0VBoxConnection, false, false);
+			m_p0VBoxConnection->set_spacing(5);
 
-			m_p0LabelServer = Gtk::manage(new Gtk::Label("Server"));
-			m_p0VBoxConnection->pack_start(*m_p0LabelServer, false, false);
-				m_p0LabelServer->set_margin_top(5);
-				m_p0LabelServer->set_margin_bottom(5);
+			Gtk::Box* m_p0HBoxStagedServer = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
+			m_p0VBoxConnection->pack_start(*m_p0HBoxStagedServer, false, false);
+				m_p0HBoxStagedServer->set_spacing(5);
+
+				Gtk::Button* m_p0ButtonInputServer = Gtk::manage(new Gtk::Button("Modify"));
+				m_p0HBoxStagedServer->pack_start(*m_p0ButtonInputServer, false, true);
+					m_p0ButtonInputServer->signal_clicked().connect(
+									sigc::mem_fun(*this, &BttestWindow::onInputStagedServer) );
+				m_p0LabelServer = Gtk::manage(new Gtk::Label("Server"));
+				m_p0HBoxStagedServer->pack_start(*m_p0LabelServer, true, true);
+					m_p0LabelServer->set_halign(Gtk::Align::ALIGN_START);
+					m_p0LabelServer->set_margin_top(5);
+					m_p0LabelServer->set_margin_bottom(5);
 
 			Gtk::Box* m_p0HBoxConnectionCmds = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL));
 			m_p0VBoxConnection->pack_start(*m_p0HBoxConnectionCmds, false, false);
@@ -344,8 +358,9 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 	m_oBtKeyServers.m_oServersChangedSignal.connect( sigc::mem_fun(this, &BttestWindow::onServersChanged) );
 	m_oBtKeyServers.m_oRefreshProgressSignal.connect( sigc::mem_fun(this, &BttestWindow::onServersProgress) );
 
-	assert(! BtKeyServers::isValid(m_oCurServer));
-	m_p0LabelServer->set_text("Server: -----------------  Port: -----");
+	//assert(BtKeyServers::isValid(m_oCurServer));
+	setStagedServerAndPort();
+//	m_p0LabelServer->set_text("Server: -----------------  Port: -----");
 
 	m_p0CheckButtonFullscreen->set_active(m_bKeysFullscreen);
 	m_p0CheckButtonInCell->set_active(m_bKeysExitInCell);
@@ -428,9 +443,19 @@ void BttestWindow::onChooseServer()
 		}
 	}
 	if (bFound) {
+		setStagedServerAndPort();
+//		m_p0LabelServer->set_text("Server: " + BtKeyServers::getStringFromAddr(m_oCurServer.m_oBtAddr)
+//								+ "  Port: " + std::to_string(m_oCurServer.m_nL2capPort));
+		//m_p0NotebookChoices->set_current_page(s_nTabKeys);
+	}
+}
+void BttestWindow::setStagedServerAndPort()
+{
+	if (BtKeyServers::isValidPort(m_oCurServer.m_nL2capPort)) {
 		m_p0LabelServer->set_text("Server: " + BtKeyServers::getStringFromAddr(m_oCurServer.m_oBtAddr)
 								+ "  Port: " + std::to_string(m_oCurServer.m_nL2capPort));
-		//m_p0NotebookChoices->set_current_page(s_nTabKeys);
+	} else {
+		m_p0LabelServer->set_text("Server: -----------------  Port: -----");
 	}
 }
 void BttestWindow::onRefreshServers()
@@ -439,6 +464,32 @@ void BttestWindow::onRefreshServers()
 	assert(! m_oBtKeyServers.isRefreshing());
 	m_oBtKeyServers.startRefreshServers();
 	setSensitivityForState();
+}
+void BttestWindow::onInputStagedServer()
+{
+	std::string sAddr = (BtKeyServers::isValidPort(m_oCurServer.m_nL2capPort) && BtKeyServers::isValidAddr(m_oCurServer.m_oBtAddr)
+							? BtKeyServers::getStringFromAddr(m_oCurServer.m_oBtAddr)
+							: "");
+	if (!m_refAddrDialog) {
+		m_refAddrDialog = Glib::RefPtr<AddrDialog>(new AddrDialog());
+		m_refAddrDialog->set_transient_for(*this);
+	}
+//std::cout << "-------> sAddr=" << sAddr << '\n';
+	const int nRet = m_refAddrDialog->run(sAddr);
+	m_refAddrDialog->hide();
+	if (nRet == AddrDialog::s_nRetOk) {
+		sAddr = m_refAddrDialog->getAddr();
+		if (sAddr.empty()) {
+			m_oCurServer.m_oBtAddr = BtKeyServers::getEmptyAddr();
+			m_oCurServer.m_nL2capPort = 0;
+		} else {
+			m_oCurServer.m_oBtAddr = BtKeyServers::getAddrFromString(sAddr);
+			if (! BtKeyServers::isValidPort(m_oCurServer.m_nL2capPort)) {
+				m_oCurServer.m_nL2capPort = BtKeyServers::s_nDefaultL2capPort;
+			}
+		}
+		setStagedServerAndPort();
+	}
 }
 void BttestWindow::printStringToLog(const std::string& sStr)
 {
@@ -459,21 +510,10 @@ void BttestWindow::onSpinNrColumnsChanged()
 	const int32_t nNewTotColumns = m_p0SpinColumns->get_value_as_int();
 	while (m_nTotColumns < nNewTotColumns) {
 		m_aEditColumnsWeight.push_back(s_nEditDefaultWeight);
-//		for (int32_t nRow = 0; nRow < m_nTotRows; ++nRow) {
-//			if (static_cast<int32_t>(m_aEditHK.size()) < m_nTotColumns * m_nTotRows) {
-//				const auto eHK = stmi::hk::HK_SELECT;
-//				m_aEditHK.push_back(eHK);
-//				m_aEditNames.push_back(m_oInputStrings.getKeyString(eHK));
-//			}
-//		}
 		++m_nTotColumns;
 	}
 	while (m_nTotColumns > nNewTotColumns) {
 		m_aEditColumnsWeight.pop_back();
-//		for (int32_t nRow = 0; nRow < m_nTotRows; ++nRow) {
-//			m_aEditNames.pop_back();
-//			m_aEditHK.pop_back();
-//		}
 		--m_nTotColumns;
 	}
 	recreateWeightsList();
@@ -488,21 +528,10 @@ void BttestWindow::onSpinNrRowsChanged()
 	const int32_t nNewTotRows = m_p0SpinRows->get_value_as_int();
 	while (m_nTotRows < nNewTotRows) {
 		m_aEditRowsWeight.push_back(s_nEditDefaultWeight);
-//		for (int32_t nColumn = 0; nColumn < m_nTotColumns; ++nColumn) {
-//			if (static_cast<int32_t>(m_aEditHK.size()) < m_nTotColumns * m_nTotRows) {
-//				const auto eHK = stmi::hk::HK_SELECT;
-//				m_aEditHK.push_back(eHK);
-//				m_aEditNames.push_back(m_oInputStrings.getKeyString(eHK));
-//			}
-//		}
 		++m_nTotRows;
 	}
 	while (m_nTotRows > nNewTotRows) {
 		m_aEditRowsWeight.pop_back();
-//		for (int32_t nColumn = 0; nColumn < m_nTotColumns; ++nColumn) {
-//			m_aEditNames.pop_back();
-//			m_aEditHK.pop_back();
-//		}
 		--m_nTotRows;
 	}
 	recreateWeightsList();
@@ -521,8 +550,8 @@ void BttestWindow::onColumnWeightActivated(const Gtk::TreeModel::Path& oPath, Gt
 	assert((nCol >= 0) && (nCol < static_cast<int32_t>(m_aEditColumnsWeight.size())));
 	assert(m_aEditColumnsWeight[nCol] == nWeight);
 	if (!m_refWeightDialog) {
-		m_refWeightDialog = Glib::RefPtr<WeightDialog>(new WeightDialog(s_nEditMaxWeight));
-		//m_refWeightDialog->set_transient_for(*this);
+		m_refWeightDialog = Glib::RefPtr<WeightDialog>(new WeightDialog(s_nEditMinWeight, s_nEditMaxWeight));
+		m_refWeightDialog->set_transient_for(*this);
 	}
 	const int nRet = m_refWeightDialog->run(nWeight, true, nCol);
 	m_refWeightDialog->hide();
@@ -541,7 +570,7 @@ void BttestWindow::onRowWeightActivated(const Gtk::TreeModel::Path& oPath, Gtk::
 	assert((nRow >= 0) && (nRow < static_cast<int32_t>(m_aEditRowsWeight.size())));
 	assert(m_aEditRowsWeight[nRow] == nWeight);
 	if (!m_refWeightDialog) {
-		m_refWeightDialog = Glib::RefPtr<WeightDialog>(new WeightDialog(s_nEditMaxWeight));
+		m_refWeightDialog = Glib::RefPtr<WeightDialog>(new WeightDialog(s_nEditMinWeight, s_nEditMaxWeight));
 		m_refWeightDialog->set_transient_for(*this);
 	}
 	const int nRet = m_refWeightDialog->run(nWeight, true, nRow);
@@ -877,6 +906,12 @@ void BttestWindow::saveStateToConfig()
 	refConfClient->set(s_sConfAppDir + "/" + s_sConfKeyExitButtonInCellColumn, m_nKeysExitButtonInCellColumn);
 	refConfClient->set(s_sConfAppDir + "/" + s_sConfKeyExitButtonInCellRow, m_nKeysExitButtonInCellRow);
 	refConfClient->set(s_sConfAppDir + "/" + s_sConfKeyLogSentKeys, m_bKeysLogSentKeys);
+	//
+	if (BtKeyServers::isValidPort(m_oCurServer.m_nL2capPort)) {
+		refConfClient->set(s_sConfAppDir + "/" + s_sConfKeySelectedServerAddr, BtKeyServers::getStringFromAddr(m_oCurServer.m_oBtAddr));
+		refConfClient->set(s_sConfAppDir + "/" + s_sConfKeySelectedServerPort, m_oCurServer.m_nL2capPort);
+	}
+
 }
 void BttestWindow::loadStateFromConfig()
 {
@@ -907,7 +942,13 @@ void BttestWindow::loadStateFromConfig()
 		const std::vector<int32_t> aColumnWeights = oValue.get_int_list();
 		const auto nTotWeights = static_cast<int32_t>(aColumnWeights.size());
 		for (int32_t nIdx = 0; nIdx < nTotWeights; ++nIdx) {
-			m_aEditColumnsWeight[nIdx] = aColumnWeights[nIdx];
+			int32_t nWeight = aColumnWeights[nIdx];
+			if (nWeight < s_nEditMinWeight) {
+				nWeight = s_nEditMinWeight;
+			} else if (nWeight > s_nEditMaxWeight) {
+				nWeight = s_nEditMaxWeight;
+			}
+			m_aEditColumnsWeight[nIdx] = nWeight;
 		}
 	}
 	oValue = refConfClient->get(s_sConfAppDir + "/" + s_sConfKeyRowWeights);
@@ -916,7 +957,13 @@ void BttestWindow::loadStateFromConfig()
 		const std::vector<int32_t> aRowWeights = oValue.get_int_list();
 		const auto nTotWeights = static_cast<int32_t>(aRowWeights.size());
 		for (int32_t nIdx = 0; nIdx < nTotWeights; ++nIdx) {
-			m_aEditRowsWeight[nIdx] = aRowWeights[nIdx];
+			int32_t nWeight = aRowWeights[nIdx];
+			if (nWeight < s_nEditMinWeight) {
+				nWeight = s_nEditMinWeight;
+			} else if (nWeight > s_nEditMaxWeight) {
+				nWeight = s_nEditMaxWeight;
+			}
+			m_aEditRowsWeight[nIdx] = nWeight;
 		}
 	}
 	oValue = refConfClient->get(s_sConfAppDir + "/" + s_sConfKeyCellKeys);
@@ -925,10 +972,11 @@ void BttestWindow::loadStateFromConfig()
 		const std::vector<int32_t> aCellKeys = oValue.get_int_list();
 		const auto nCellKeys = static_cast<int32_t>(aCellKeys.size());
 		for (int32_t nIdx = 0; nIdx < nCellKeys; ++nIdx) {
-			const auto eHK = static_cast<hk::HARDWARE_KEY>(aCellKeys[nIdx]);
-			if (eHK != hk::HK_NULL) {
-				m_aEditHK[nIdx] = eHK;
+			auto eHK = static_cast<hk::HARDWARE_KEY>(aCellKeys[nIdx]);
+			if (m_oInputStrings.getKeyString(eHK).empty()) {
+				eHK = hk::HK_NULL;
 			}
+			m_aEditHK[nIdx] = eHK;
 		}
 	}
 	m_aEditNames.clear();
@@ -982,6 +1030,28 @@ void BttestWindow::loadStateFromConfig()
 	eType = oValue.get_type();
 	if (eType == Gnome::Conf::VALUE_BOOL) {
 		m_bKeysLogSentKeys = oValue.get_bool();
+	}
+	//
+	bool bIsValidAddr = false;
+	oValue = refConfClient->get(s_sConfAppDir + "/" + s_sConfKeySelectedServerAddr);
+	eType = oValue.get_type();
+	if (eType == Gnome::Conf::VALUE_STRING) {
+		const std::string sSelectedAddr = oValue.get_string();
+		bIsValidAddr = BtKeyServers::isValidStringAddr(sSelectedAddr);
+		if (bIsValidAddr) {
+			m_oCurServer.m_oBtAddr = BtKeyServers::getAddrFromString(sSelectedAddr);
+		}
+	}
+//std::cout << "loading  bIsValidAddr " << bIsValidAddr << '\n';
+	if (bIsValidAddr) {
+		oValue = refConfClient->get(s_sConfAppDir + "/" + s_sConfKeySelectedServerPort);
+		eType = oValue.get_type();
+		if (eType == Gnome::Conf::VALUE_INT) {
+			const int32_t nSelectedPort = oValue.get_int();
+			if (BtKeyServers::isValidPort(nSelectedPort)) {
+				m_oCurServer.m_nL2capPort = nSelectedPort;
+			}
+		}
 	}
 }
 

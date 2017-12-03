@@ -21,6 +21,7 @@
 #ifndef STMI_BTTEST_WINDOW_H
 #define STMI_BTTEST_WINDOW_H
 
+#include "addrdialog.h"
 #include "weightdialog.h"
 #include "keydialog.h"
 #include "keyboarddialog.h"
@@ -48,6 +49,7 @@ private:
 	void onServerSelectionChanged();
 	void onChooseServer();
 	void onRefreshServers();
+	void onInputStagedServer();
 	void onButtonConnect();
 	void onButtonDisconnect();
 	void onButtonRemove();
@@ -67,6 +69,8 @@ private:
 	void recreateCellsKeyList();
 	void updateInCellColumn();
 	void updateInCellRow();
+
+	void setStagedServerAndPort();
 
 	// is the key pressed (regardless of the type of input)
 	bool isKeyPressed(hk::HARDWARE_KEY eKey) const;
@@ -115,6 +119,7 @@ private:
 	static constexpr int32_t s_nEditMaxGridH = 5;
 
 	static const int32_t s_nEditDefaultWeight;
+	static constexpr int32_t s_nEditMinWeight = 1;
 	static constexpr int32_t s_nEditMaxWeight = 1000;
 
 	static constexpr int32_t s_nTotPages = 5;
@@ -140,7 +145,9 @@ private:
 				Gtk::Button* m_p0ButtonRefreshServers = nullptr;
 				Gtk::Label* m_p0LabelProgress = nullptr;
 			//Gtk::Box* m_p0VBoxConnection = nullptr;
-				Gtk::Label* m_p0LabelServer = nullptr;
+				//Gtk::Box* m_p0HBoxStagedServer = nullptr;
+					//Gtk::Button* m_p0ButtonInputServer = nullptr;
+					Gtk::Label* m_p0LabelServer = nullptr;
 				//Gtk::Box* m_p0HBoxConnectionCmds = nullptr;
 					Gtk::Button* m_p0ButtonConnect = nullptr;
 					Gtk::Button* m_p0ButtonDisconnect = nullptr;
@@ -241,6 +248,7 @@ private:
 	CellKeyColumns m_oCellKeyColumns;
 	Glib::RefPtr<Gtk::TreeStore> m_refTreeModelCellKey;
 
+	Glib::RefPtr<AddrDialog> m_refAddrDialog;
 	Glib::RefPtr<WeightDialog> m_refWeightDialog;
 	Glib::RefPtr<KeyDialog> m_refKeyDialog;
 	Glib::RefPtr<KeyboardDialog> m_refKeyboardDialog;
@@ -279,7 +287,7 @@ private:
 	Glib::RefPtr<Gtk::TextBuffer> m_refTextBufferInfo;
 
 	std::string m_sSelectedAddr;
-	int32_t m_nSelectedPort = -1;
+	int32_t m_nSelectedPort = 0;
 
 	BtKeyServers::ServerInfo m_oCurServer;
 
@@ -301,6 +309,8 @@ private:
 	static const std::string s_sConfKeyExitButtonInCellColumn;
 	static const std::string s_sConfKeyExitButtonInCellRow;
 	static const std::string s_sConfKeyLogSentKeys;
+	static const std::string s_sConfKeySelectedServerAddr;
+	static const std::string s_sConfKeySelectedServerPort;
 private:
 	BttestWindow() = delete;
 };

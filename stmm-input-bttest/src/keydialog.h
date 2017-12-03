@@ -47,6 +47,7 @@ public:
 	static constexpr int s_nRetCancel = 0;
 private:
 	void onComboKeyChanged();
+	void onErrorOneSecond();
 	std::pair<bool, Gtk::TreeModel::Children::iterator> findKeyRow(hk::HARDWARE_KEY eKey) const;
 
 private:
@@ -71,6 +72,9 @@ private:
 	////////////
 	hk::HARDWARE_KEY m_eOldKey; 
 	hk::HARDWARE_KEY m_eKey;
+
+	std::string m_sBaseLabelString;
+
 	const InputStrings& m_oInputStrings;
 
 	static constexpr int32_t s_nInitialWindowSizeW = 200;

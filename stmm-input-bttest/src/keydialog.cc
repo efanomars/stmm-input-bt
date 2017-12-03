@@ -42,6 +42,7 @@ KeyDialog::KeyDialog(InputStrings& oInputStrings)
 
 	add_button("Cancel", s_nRetCancel);
 	add_button("Ok", s_nRetOk);
+	set_default_response(s_nRetOk);
 
 	Gtk::Box* p0ContentArea = get_content_area();
 	assert(p0ContentArea != nullptr);
@@ -65,6 +66,7 @@ KeyDialog::KeyDialog(InputStrings& oInputStrings)
 		m_p0VBoxChooseKey->pack_start(*m_p0ComboKey, true, true);
 			m_p0ComboKey->set_entry_text_column(m_oKeyColumns.m_oName);
 			//m_p0ComboKey->set_focus_on_click(true);
+			m_p0ComboKey->get_entry()->set_activates_default(true);
 			m_p0ComboKey->signal_changed().connect(
 							sigc::mem_fun(*this, &KeyDialog::onComboKeyChanged) );
 
@@ -75,11 +77,12 @@ KeyDialog::~KeyDialog()
 }
 int KeyDialog::run(hk::HARDWARE_KEY eKey, int32_t nColumn, int32_t nRow)
 {
-	assert(eKey != hk::HK_NULL);
+	assert(! m_oInputStrings.getKeyString(eKey).empty());
 	assert((nColumn >= 0) && (nRow >= 0));
 	m_eOldKey = eKey;
 	m_eKey = eKey;
-	m_p0LabelChooseKey->set_label(std::string("Key of column ") + std::to_string(nColumn) + "  row " + std::to_string(nRow));
+	m_sBaseLabelString = std::string("Key of column ") + std::to_string(nColumn) + "  row " + std::to_string(nRow);
+	m_p0LabelChooseKey->set_label(m_sBaseLabelString);
 
 	const auto oPair = findKeyRow(m_eKey);
 	#ifndef NDEBUG
@@ -89,7 +92,24 @@ int KeyDialog::run(hk::HARDWARE_KEY eKey, int32_t nColumn, int32_t nRow)
 	const auto itFind = oPair.second;
 	m_p0ComboKey->set_active(itFind);
 	//
-	return Gtk::Dialog::run();
+	int nRet;
+	do {
+		nRet = Gtk::Dialog::run();
+		if (nRet != s_nRetOk) {
+			break; //--------
+		}
+		if (m_p0ComboKey->get_active_row_number() >= 0) {
+			break; //--------
+		}
+		// error
+		m_p0LabelChooseKey->set_text(m_sBaseLabelString + "\nInvalid key!");
+		Glib::signal_timeout().connect_once(sigc::mem_fun(*this, &KeyDialog::onErrorOneSecond), 1000);
+	} while (true);
+	return nRet;
+}
+void KeyDialog::onErrorOneSecond()
+{
+	m_p0LabelChooseKey->set_text(m_sBaseLabelString);
 }
 std::pair<bool, Gtk::TreeModel::Children::iterator> KeyDialog::findKeyRow(hk::HARDWARE_KEY eKey) const
 {
@@ -113,11 +133,13 @@ void KeyDialog::onComboKeyChanged()
 		// no item selected
 		// let's see whether the entry string is a key name
 		const auto sText = m_p0ComboKey->get_entry_text();
-		const auto eKey = m_oInputStrings.getStringKey(sText);
-		if (eKey == hk::HK_NULL) {
-			return;
+		const auto oPairInput = m_oInputStrings.getStringKey(sText);
+		const bool bFoundString = oPairInput.first;
+		if (!bFoundString) {
+			return; //----------------------------------------------------------
 		}
-		const auto oPair = findKeyRow(m_eKey);
+		const auto eKey = oPairInput.second;
+		const auto oPair = findKeyRow(eKey);
 		#ifndef NDEBUG
 		const bool bFound = oPair.first;
 		#endif //NDEBUG

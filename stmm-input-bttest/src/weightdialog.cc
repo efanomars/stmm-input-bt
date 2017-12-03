@@ -27,11 +27,12 @@
 namespace stmi
 {
 
-WeightDialog::WeightDialog(int32_t nMaxWeight)
+WeightDialog::WeightDialog(int32_t nMinWeight, int32_t nMaxWeight)
 : Gtk::Dialog()
 , m_p0SpinWeight(nullptr)
-, m_nOldWeight(11)
-, m_nWeight(21)
+, m_nOldWeight(m_nMinWeight)
+, m_nWeight(m_nMinWeight)
+, m_nMinWeight(nMinWeight)
 , m_nMaxWeight(nMaxWeight)
 {
 	//
@@ -39,10 +40,11 @@ WeightDialog::WeightDialog(int32_t nMaxWeight)
 	set_default_size(s_nInitialWindowSizeW, s_nInitialWindowSizeH);
 	set_resizable(true);
 
-	m_refAdjustmentWeight = Gtk::Adjustment::create(m_nOldWeight, 1, m_nMaxWeight, 1, 1, 0);
+	m_refAdjustmentWeight = Gtk::Adjustment::create(m_nMinWeight, m_nMinWeight, m_nMaxWeight, 1, 1, 0);
 
 	add_button("Cancel", s_nRetCancel);
 	add_button("Ok", s_nRetOk);
+	set_default_response(s_nRetOk);
 
 	Gtk::Box* p0ContentArea = get_content_area();
 	assert(p0ContentArea != nullptr);
@@ -55,6 +57,7 @@ WeightDialog::WeightDialog(int32_t nMaxWeight)
 			m_p0LabelWeightDesc->set_alignment(Gtk::Align::ALIGN_START, m_p0LabelWeightDesc->property_valign());
 		m_p0SpinWeight = Gtk::manage(new Gtk::SpinButton(m_refAdjustmentWeight));
 		m_p0VBoxWeight->pack_start(*m_p0SpinWeight, false, false);
+			m_p0SpinWeight->set_activates_default(true);
 			m_p0SpinWeight->signal_value_changed().connect(
 							sigc::mem_fun(*this, &WeightDialog::onSpinWeightChanged) );
 
@@ -65,7 +68,7 @@ WeightDialog::~WeightDialog()
 }
 int WeightDialog::run(int32_t nWeight, bool bColumn, int32_t nColRow)
 {
-	assert((nWeight >= 1) && (nWeight <= m_nMaxWeight));
+	assert((nWeight >= m_nMinWeight) && (nWeight <= m_nMaxWeight));
 	assert(nColRow >= 0);
 	m_nOldWeight = nWeight;
 	m_nWeight = nWeight;
