@@ -27,7 +27,7 @@
 namespace stmi
 {
 
-KeyDialog::KeyDialog(InputStrings& oInputStrings)
+KeyDialog::KeyDialog(Gtk::Window& oParent, InputStrings& oInputStrings)
 : Dialog()
 , m_p0LabelChooseKey(nullptr)
 , m_p0ComboKey(nullptr)
@@ -35,6 +35,7 @@ KeyDialog::KeyDialog(InputStrings& oInputStrings)
 , m_eKey(hk::HK_NULL)
 , m_oInputStrings(oInputStrings)
 {
+	set_transient_for(oParent);
 	//
 	set_title("Choose key");
 	set_default_size(s_nInitialWindowSizeW, s_nInitialWindowSizeH);

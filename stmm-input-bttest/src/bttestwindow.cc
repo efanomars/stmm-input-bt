@@ -185,7 +185,7 @@ BttestWindow::BttestWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient,
 			m_p0VBoxConnection->pack_start(*m_p0HBoxStagedServer, false, false);
 				m_p0HBoxStagedServer->set_spacing(5);
 
-				Gtk::Button* m_p0ButtonInputServer = Gtk::manage(new Gtk::Button("Modify"));
+				m_p0ButtonInputServer = Gtk::manage(new Gtk::Button("Set"));
 				m_p0HBoxStagedServer->pack_start(*m_p0ButtonInputServer, false, true);
 					m_p0ButtonInputServer->signal_clicked().connect(
 									sigc::mem_fun(*this, &BttestWindow::onInputStagedServer) );
@@ -388,6 +388,7 @@ void BttestWindow::setSensitivityForState()
 	m_p0ButtonRemove->set_sensitive(bConnected || bSending);
 	const bool bRefreshing = m_oBtKeyServers.isRefreshing();
 	m_p0ButtonChooseServer->set_sensitive(bDisconnected);
+	m_p0ButtonInputServer->set_sensitive(bDisconnected);
 	m_p0ButtonRefreshServers->set_sensitive(!bRefreshing);
 	if (m_refKeyboardDialog) {
 		m_refKeyboardDialog->connectionStateChanged();
@@ -469,9 +470,9 @@ void BttestWindow::onInputStagedServer()
 							? BtKeyServers::getStringFromAddr(m_oCurServer.m_oBtAddr)
 							: "");
 	if (!m_refAddrDialog) {
-		m_refAddrDialog = Glib::RefPtr<AddrDialog>(new AddrDialog());
-		m_refAddrDialog->set_transient_for(*this);
+		m_refAddrDialog = Glib::RefPtr<AddrDialog>(new AddrDialog(*this));
 	}
+	m_refAddrDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 //std::cout << "-------> sAddr=" << sAddr << '\n';
 	const int nRet = m_refAddrDialog->run(sAddr);
 	m_refAddrDialog->hide();
@@ -548,9 +549,9 @@ void BttestWindow::onColumnWeightActivated(const Gtk::TreeModel::Path& oPath, Gt
 	assert((nCol >= 0) && (nCol < static_cast<int32_t>(m_aEditColumnsWeight.size())));
 	assert(m_aEditColumnsWeight[nCol] == nWeight);
 	if (!m_refWeightDialog) {
-		m_refWeightDialog = Glib::RefPtr<WeightDialog>(new WeightDialog(s_nEditMinWeight, s_nEditMaxWeight));
-		m_refWeightDialog->set_transient_for(*this);
+		m_refWeightDialog = Glib::RefPtr<WeightDialog>(new WeightDialog(*this, s_nEditMinWeight, s_nEditMaxWeight));
 	}
+	m_refWeightDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 	const int nRet = m_refWeightDialog->run(nWeight, true, nCol);
 	m_refWeightDialog->hide();
 	if (nRet == WeightDialog::s_nRetOk) {
@@ -568,9 +569,9 @@ void BttestWindow::onRowWeightActivated(const Gtk::TreeModel::Path& oPath, Gtk::
 	assert((nRow >= 0) && (nRow < static_cast<int32_t>(m_aEditRowsWeight.size())));
 	assert(m_aEditRowsWeight[nRow] == nWeight);
 	if (!m_refWeightDialog) {
-		m_refWeightDialog = Glib::RefPtr<WeightDialog>(new WeightDialog(s_nEditMinWeight, s_nEditMaxWeight));
-		m_refWeightDialog->set_transient_for(*this);
+		m_refWeightDialog = Glib::RefPtr<WeightDialog>(new WeightDialog(*this, s_nEditMinWeight, s_nEditMaxWeight));
 	}
+	m_refWeightDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 	const int nRet = m_refWeightDialog->run(nWeight, true, nRow);
 	m_refWeightDialog->hide();
 	if (nRet == WeightDialog::s_nRetOk) {
@@ -593,9 +594,9 @@ void BttestWindow::onCellNameActivated(const Gtk::TreeModel::Path& oPath, Gtk::T
 	assert(nIdx < static_cast<int32_t>(m_aEditHK.size()));
 	assert(m_aEditHK[nIdx] == eKey);
 	if (!m_refKeyDialog) {
-		m_refKeyDialog = Glib::RefPtr<KeyDialog>(new KeyDialog(m_oInputStrings));
-		m_refKeyDialog->set_transient_for(*this);
+		m_refKeyDialog = Glib::RefPtr<KeyDialog>(new KeyDialog(*this, m_oInputStrings));
 	}
+	m_refKeyDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 	const int nRet = m_refKeyDialog->run(eKey, nColumn, nRow);
 	m_refKeyDialog->hide();
 	if (nRet == WeightDialog::s_nRetOk) {
@@ -642,10 +643,8 @@ void BttestWindow::onButtonKeyboard()
 //std::cout << "BttestWindow::onButtonKeyboard m_bKeysFullscreen=" << m_bKeysFullscreen << '\n';
 	if (!m_refKeyboardDialog) {
 		m_refKeyboardDialog = Glib::RefPtr<KeyboardDialog>(new KeyboardDialog(*this, m_bKeysFullscreen));
-		m_refKeyboardDialog->set_transient_for(*this);
-		//Glib::signal_timeout().connect_once(sigc::mem_fun(*this, &BttestWindow::onButtonKeyboard), 0);
-		//return; //--------------------------------------------------------------
 	}
+	m_refKeyboardDialog->set_position(Gtk::WIN_POS_CENTER_ON_PARENT);
 	m_refKeyboardDialog->run(m_bKeysFullscreen);
 	m_refKeyboardDialog->hide();
 }

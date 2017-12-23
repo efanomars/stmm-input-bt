@@ -33,7 +33,7 @@ namespace stmi
 class KeyDialog : public Gtk::Dialog
 {
 public:
-	KeyDialog(InputStrings& oInputStrings);
+	KeyDialog(Gtk::Window& oParent, InputStrings& oInputStrings);
 	virtual ~KeyDialog();
 
 	// Call this instead of run()

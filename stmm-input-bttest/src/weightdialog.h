@@ -31,7 +31,7 @@ namespace stmi
 class WeightDialog : public Gtk::Dialog
 {
 public:
-	WeightDialog(int32_t nMinWeight, int32_t nMaxWeight);
+	WeightDialog(Gtk::Window& oParent, int32_t nMinWeight, int32_t nMaxWeight);
 	virtual ~WeightDialog();
 
 	// Call this instead of run()

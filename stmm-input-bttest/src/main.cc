@@ -68,74 +68,74 @@ void printUsage()
 	std::cout << "                         with a new Refresh." << '\n';
 }
 
-void evalNoArg(int& argc, char**& argv, const std::string& sOption1, const std::string& sOption2, bool& bVar)
+void evalNoArg(int& nArgC, char**& aArgV, const std::string& sOption1, const std::string& sOption2, bool& bVar)
 {
-	if (argv[1] == nullptr) {
+	if (aArgV[1] == nullptr) {
 		return;
 	}
-	const bool bIsOption1 = (sOption1 == std::string(argv[1]));
-	if (bIsOption1 || ((!sOption2.empty()) && (sOption2 == std::string(argv[1])))) {
+	const bool bIsOption1 = (sOption1 == std::string(aArgV[1]));
+	if (bIsOption1 || ((!sOption2.empty()) && (sOption2 == std::string(aArgV[1])))) {
 		bVar = true;
-		--argc;
-		++argv;
+		--nArgC;
+		++aArgV;
 	}
 }
-bool evalIntArg(int& argc, char**& argv, const std::string& sOption1, const std::string& sOption2, int32_t& nVar, int32_t nMin)
+bool evalIntArg(int& nArgC, char**& aArgV, const std::string& sOption1, const std::string& sOption2, int32_t& nVar, int32_t nMin)
 {
-	if (argv[1] == nullptr) {
+	if (aArgV[1] == nullptr) {
 		return true;
 	}
-	const bool bIsOption1 = (sOption1 == std::string(argv[1]));
-	if (bIsOption1 || ((!sOption2.empty()) && (sOption2 == std::string(argv[1])))) {
-		--argc;
-		++argv;
-		if (argc == 1) {
-			std::cout << "Error: " << (bIsOption1 ? sOption1 : sOption2) << " missing argument" << '\n';
+	const bool bIsOption1 = (sOption1 == std::string(aArgV[1]));
+	if (bIsOption1 || ((!sOption2.empty()) && (sOption2 == std::string(aArgV[1])))) {
+		--nArgC;
+		++aArgV;
+		if (nArgC == 1) {
+			std::cerr << "Error: " << (bIsOption1 ? sOption1 : sOption2) << " missing argument" << '\n';
 			return false; //----------------------------------------------------
 		} else {
 			try {
-				double fInterval = Glib::Ascii::strtod(argv[1]);
+				double fInterval = Glib::Ascii::strtod(aArgV[1]);
 				if (fInterval < nMin) {
 					nVar = nMin;
 				} else {
 					nVar = std::ceil(fInterval);
 				}
 			} catch (const std::runtime_error& oErr) {
-				std::cout << "Error: " << oErr.what() << '\n';
+				std::cerr << "Error: " << oErr.what() << '\n';
 				return false; //------------------------------------------------
 			}
-			--argc;
-			++argv;
+			--nArgC;
+			++aArgV;
 		}
 	}
 	return true;
 }
-bool evalAddrArg(int& argc, char**& argv, const std::string& sOption1, const std::string& sOption2, ::bdaddr_t& oBtAddr)
+bool evalAddrArg(int& nArgC, char**& aArgV, const std::string& sOption1, const std::string& sOption2, ::bdaddr_t& oBtAddr)
 {
-	if (argv[1] == nullptr) {
+	if (aArgV[1] == nullptr) {
 		return true;
 	}
-	const bool bIsOption1 = (sOption1 == std::string(argv[1]));
-	if (bIsOption1 || ((!sOption2.empty()) && (sOption2 == std::string(argv[1])))) {
-		--argc;
-		++argv;
-		if (argc == 1) {
-			std::cout << "Error: " << (bIsOption1 ? sOption1 : sOption2) << " missing argument" << '\n';
+	const bool bIsOption1 = (sOption1 == std::string(aArgV[1]));
+	if (bIsOption1 || ((!sOption2.empty()) && (sOption2 == std::string(aArgV[1])))) {
+		--nArgC;
+		++aArgV;
+		if (nArgC == 1) {
+			std::cerr << "Error: " << (bIsOption1 ? sOption1 : sOption2) << " missing argument" << '\n';
 			return false; //----------------------------------------------------
 		} else {
-			std::string sAddr = argv[1];
+			std::string sAddr = aArgV[1];
 			if (!BtKeyServers::isValidStringAddr(sAddr)) {
-				std::cout << "Error: invalid bluetooth address" << '\n';
+				std::cerr << "Error: invalid bluetooth address" << '\n';
 				return false; //------------------------------------------------
 			}
 			oBtAddr = BtKeyServers::getAddrFromString(sAddr);
-			--argc;
-			++argv;
+			--nArgC;
+			++aArgV;
 		}
 	}
 	return true;
 }
-int bttestMain(int argc, char** argv)
+int bttestMain(int nArgC, char** aArgV)
 {
 	int32_t nTimeoutConnect = BtKeyClient::s_nDefaultTimeoutConnect;
 	int32_t nTimeoutSend = BtKeyClient::s_nDefaultTimeoutSend;
@@ -149,58 +149,58 @@ int bttestMain(int argc, char** argv)
 	bool bHelp = false;
 	bool bVersion = false;
 	//
-	char* argvZeroSave = ((argc >= 1) ? argv[0] : nullptr);
-	while (argc >= 2) {
-		auto nOldArgC = argc;
-		evalNoArg(argc, argv, "--help", "-h", bHelp);
+	char* p0ArgVZeroSave = ((nArgC >= 1) ? aArgV[0] : nullptr);
+	while (nArgC >= 2) {
+		auto nOldArgC = nArgC;
+		evalNoArg(nArgC, aArgV, "--help", "-h", bHelp);
 		if (bHelp) {
 			printUsage();
 			return EXIT_SUCCESS; //---------------------------------------------
 		}
-		evalNoArg(argc, argv, "--version", "-v", bVersion);
+		evalNoArg(nArgC, aArgV, "--version", "-v", bVersion);
 		if (bVersion) {
 			printVersion();
 			return EXIT_SUCCESS; //---------------------------------------------
 		}
-		evalNoArg(argc, argv, "--flush", "-f", bRefreshFlush);
+		evalNoArg(nArgC, aArgV, "--flush", "-f", bRefreshFlush);
 		//
-		bool bOk = evalIntArg(argc, argv, "--interval", "-i", nInterval, 50);
+		bool bOk = evalIntArg(nArgC, aArgV, "--interval", "-i", nInterval, 50);
 		if (!bOk) {
 			return EXIT_FAILURE; //---------------------------------------------
 		}
-		bOk = evalIntArg(argc, argv, "--connect", "-c", nTimeoutConnect, 100);
+		bOk = evalIntArg(nArgC, aArgV, "--connect", "-c", nTimeoutConnect, 100);
 		if (!bOk) {
 			return EXIT_FAILURE; //---------------------------------------------
 		}
-		bOk = evalIntArg(argc, argv, "--send", "-s", nTimeoutSend, 10);
+		bOk = evalIntArg(nArgC, aArgV, "--send", "-s", nTimeoutSend, 10);
 		if (!bOk) {
 			return EXIT_FAILURE; //---------------------------------------------
 		}
-		bOk = evalIntArg(argc, argv, "--noop", "-n", nNoopAfter, 0);
+		bOk = evalIntArg(nArgC, aArgV, "--noop", "-n", nNoopAfter, 0);
 		if (!bOk) {
 			return EXIT_FAILURE; //---------------------------------------------
 		}
-		bOk = evalIntArg(argc, argv, "--refresh", "-r", n1s28Periods, 1);
+		bOk = evalIntArg(nArgC, aArgV, "--refresh", "-r", n1s28Periods, 1);
 		if (!bOk) {
 			return EXIT_FAILURE; //---------------------------------------------
 		}
-		bOk = evalIntArg(argc, argv, "--port", "-p", nL2capPort, 0);
+		bOk = evalIntArg(nArgC, aArgV, "--port", "-p", nL2capPort, 0);
 		if (!bOk) {
 			return EXIT_FAILURE; //---------------------------------------------
 		}
-		bOk = evalAddrArg(argc, argv, "--extra-server", "-e", oExtraAddr);
+		bOk = evalAddrArg(nArgC, aArgV, "--extra-server", "-e", oExtraAddr);
 		if (!bOk) {
 			return EXIT_FAILURE; //---------------------------------------------
 		}
-		if (nOldArgC == argc) {
-			std::cout << "Unknown argument: " << std::string(argv[1]) << '\n';
+		if (nOldArgC == nArgC) {
+			std::cerr << "Unknown argument: " << ((aArgV[1] == nullptr) ? "(null)" : std::string(aArgV[1])) << '\n';
 			return EXIT_FAILURE; //---------------------------------------------
 		}
-		argv[0] = argvZeroSave;
+		aArgV[0] = p0ArgVZeroSave;
 	}
 
 	if (! BtKeyServers::isValidPort(nL2capPort)) {
-		std::cout << "Error: Port must be odd, from 4097 to 32765" << '\n';
+		std::cerr << "Error: Port must be odd, from 4097 to 32765" << '\n';
 		return EXIT_FAILURE; //-------------------------------------------------
 	}
 
@@ -216,14 +216,14 @@ int bttestMain(int argc, char** argv)
 		const Glib::ustring sWindoTitle = "stmm-input-bttest " + Config::getVersionString();
 		try {
 			//
-			Glib::RefPtr<Gtk::Application> refApp = Gtk::Application::create(argc, argv, sAppName);
+			Glib::RefPtr<Gtk::Application> refApp = Gtk::Application::create(nArgC, aArgV, sAppName);
 			Gnome::Conf::init();
 			BttestWindow oWindow(sWindoTitle, oClient, oServers);
 			nRet = refApp->run(oWindow);
 			// Save "preferences"
 			oWindow.saveStateToConfig();
 		} catch (const std::runtime_error& oErr) {
-			std::cout << "Error: " << oErr.what() << '\n';
+			std::cerr << "Error: " << oErr.what() << '\n';
 			nRet = EXIT_FAILURE;
 		}
 	}
@@ -236,8 +236,8 @@ int bttestMain(int argc, char** argv)
 
 } // namespace stmi
 
-int main(int argc, char** argv)
+int main(int nArgC, char** aArgV)
 {
-	return stmi::bttestMain(argc, argv);
+	return stmi::bttestMain(nArgC, aArgV);
 }
 

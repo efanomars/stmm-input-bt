@@ -32,11 +32,12 @@ const std::string AddrDialog::s_sLabelStringNormal = "Bluetooth address\n(format
 const std::string AddrDialog::s_sLabelStringError = "Bluetooth address\nSyntax error!";
 
 
-AddrDialog::AddrDialog()
+AddrDialog::AddrDialog(Gtk::Window& oParent)
 : Gtk::Dialog()
 , m_p0LabelAddrDesc(nullptr)
 , m_p0EntryAddr(nullptr)
 {
+	set_transient_for(oParent);
 	//
 	set_title("Server address");
 	set_default_size(s_nInitialWindowSizeW, s_nInitialWindowSizeH);

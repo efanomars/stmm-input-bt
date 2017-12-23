@@ -146,7 +146,7 @@ private:
 				Gtk::Label* m_p0LabelProgress = nullptr;
 			//Gtk::Box* m_p0VBoxConnection = nullptr;
 				//Gtk::Box* m_p0HBoxStagedServer = nullptr;
-					//Gtk::Button* m_p0ButtonInputServer = nullptr;
+					Gtk::Button* m_p0ButtonInputServer = nullptr;
 					Gtk::Label* m_p0LabelServer = nullptr;
 				//Gtk::Box* m_p0HBoxConnectionCmds = nullptr;
 					Gtk::Button* m_p0ButtonConnect = nullptr;

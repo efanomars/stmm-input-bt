@@ -31,7 +31,7 @@ namespace stmi
 class AddrDialog : public Gtk::Dialog
 {
 public:
-	AddrDialog();
+	AddrDialog(Gtk::Window& oParent);
 	virtual ~AddrDialog();
 
 	// Call this instead of run()

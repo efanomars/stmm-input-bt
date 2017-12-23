@@ -27,7 +27,7 @@
 namespace stmi
 {
 
-WeightDialog::WeightDialog(int32_t nMinWeight, int32_t nMaxWeight)
+WeightDialog::WeightDialog(Gtk::Window& oParent, int32_t nMinWeight, int32_t nMaxWeight)
 : Gtk::Dialog()
 , m_p0SpinWeight(nullptr)
 , m_nOldWeight(m_nMinWeight)
@@ -35,6 +35,7 @@ WeightDialog::WeightDialog(int32_t nMinWeight, int32_t nMaxWeight)
 , m_nMinWeight(nMinWeight)
 , m_nMaxWeight(nMaxWeight)
 {
+	set_transient_for(oParent);
 	//
 	set_title("Choose weight");
 	set_default_size(s_nInitialWindowSizeW, s_nInitialWindowSizeH);
