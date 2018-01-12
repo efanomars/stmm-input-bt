@@ -29,7 +29,7 @@ def main():
 				, "libstmm-input-gtk-bt/examples/keys-srv"
 				, "stmm-input-bttest"]
 
-	aExclPatterns = ["build*", "configure", "nbproject*", ".project", ".cproject", ".settings"]
+	aExclPatterns = ["build*", "configure", "nbproject*", ".project", ".cproject", ".settings", "core"]
 
 	sExcludes = ""
 	for sProjDir in aProjDirs:
@@ -59,6 +59,7 @@ def main():
 							" --exclude=stuff"
 							" --exclude=googletest"
 							" --exclude=.metadata"
+							" --exclude=core"
 							" --exclude=libstmm-input-gtk-bt/examples/.metadata"
 							" {}").format(sToday, sExcludes, sSourceDir)
 	print(sCmd)
