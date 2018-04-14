@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2018  Stefano Marsili, <stemars@gmx.ch>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -212,7 +212,7 @@ int bttestMain(int nArgC, char** aArgV)
 		// client model
 		BtKeyClient oClient(nTimeoutConnect, nTimeoutSend, nInterval, nNoopAfter);
 
-		const Glib::ustring sAppName = "ch.efanomars.bttest";
+		const Glib::ustring sAppName = "com.github.efanomars.stmm-input-bt.stmm-input-bttest";
 		const Glib::ustring sWindoTitle = "stmm-input-bttest " + Config::getVersionString();
 		try {
 			//
