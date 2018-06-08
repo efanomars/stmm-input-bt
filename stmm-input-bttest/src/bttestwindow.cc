@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2018  Stefano Marsili, <stemars@gmx.ch>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -668,7 +668,8 @@ void BttestWindow::onButtonRemove()
 }
 void BttestWindow::finalizeKeys()
 {
-	for (auto oPK : m_aPressedKeys) {
+	auto aPressedKeys = m_aPressedKeys;
+	for (const auto& oPK : aPressedKeys) {
 		releaseKey(oPK.m_eKey, oPK.m_eType, oPK.m_p0Finger, true);
 	}
 }
@@ -718,22 +719,24 @@ bool BttestWindow::releaseFingerKey(const GdkEventSequence* p0Finger, bool bCanc
 bool BttestWindow::pressKey(hk::HARDWARE_KEY eKey, PRESS_TYPE eType, const GdkEventSequence* p0Finger)
 {
 	bool bKeyAlreadyPressed = false;
-	auto itFindSame = m_aPressedKeys.end();
+//	auto itFindSame = m_aPressedKeys.end();
 	for (auto itCur = m_aPressedKeys.begin(); itCur != m_aPressedKeys.end(); ++itCur) {
 		const bool bSameKey = (itCur->m_eKey == eKey);
 		if (bSameKey) {
 			bKeyAlreadyPressed = true;
 		}
 		if (bSameKey && (itCur->m_eType == eType) && (itCur->m_p0Finger == p0Finger)) {
-			if (itFindSame == m_aPressedKeys.end()) {
-				itFindSame = itCur;
-			}
+//			if (itFindSame == m_aPressedKeys.end()) {
+				// already pressed
+			return false; //------------------------------------------------
+//				itFindSame = itCur;
+//			}
 		}
 	}
-	if (itFindSame != m_aPressedKeys.end()) {
-		// already pressed
-		return false; //--------------------------------------------------------
-	}
+//	if (itFindSame != m_aPressedKeys.end()) {
+//		// already pressed
+//		return false; //--------------------------------------------------------
+//	}
 	PressedKey oPK;
 	oPK.m_eKey = eKey;
 	oPK.m_eType = eType;
