@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2018  Stefano Marsili, <stemars@gmx.ch>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -264,15 +264,15 @@ bool BtKeyServers::doIntervalTimeout()
 //std::cout << "BtKeyServers::doIntervalTimeout() READY" << '\n';
 		m_aServers.clear();
 		addLocalAddress();
-		const auto oPair = m_oRefreshFuture.get();
+		auto oPair = m_oRefreshFuture.get();
 		const std::string& sError = oPair.first;
 		// refresh ended
 		m_nRefreshStarted = -1;
 		if (!sError.empty()) {
 			m_sLastError = sError;
 		}
-		const std::vector<BtKeyServers::ServerInfo>& aServers = oPair.second;
-		for (auto oInfo : aServers) {
+		std::vector<BtKeyServers::ServerInfo>& aServers = oPair.second;
+		for (auto& oInfo : aServers) {
 			m_aServers.push_back(std::move(oInfo));
 		}
 		m_oServersChangedSignal.emit();
