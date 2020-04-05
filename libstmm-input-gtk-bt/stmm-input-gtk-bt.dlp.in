@@ -1,8 +1,0 @@
-@STMMI_GTK_BT_INSTALL_LIB_PATH1@
-@STMMI_GTK_BT_INSTALL_LIB_PATH2@
-@STMMI_GTK_BT_INSTALL_LIB_PATH3@
-@STMMI_GTK_BT_INSTALL_LIB_PATH4@
-#=#+#=#
-#=#+#=#
-Plugin for (non HID) bluetooth key devices.
-This plugin starts a server according to the very simple btkeys protocol.
