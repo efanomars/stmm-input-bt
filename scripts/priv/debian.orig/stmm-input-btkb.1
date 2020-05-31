@@ -1,0 +1,71 @@
+.TH STMM-INPUT-BTKB 1
+.SH NAME
+stmm-input-btkb \- Virtual keyboard over bluetooth
+.SH SYNOPSIS
+.TP 5
+\fBstmm-input-btkb\fR [\fIOPTION\fR]
+.RI
+.br
+
+.SH OPTIONS
+.PP
+.br
+\fB-e --extra-server\fR \fIXX:XX:XX:XX:XX:XX\fR    with X=[0-9|A-F]
+                       Extra server bluetooth address.
+.br
+.br
+\fB-f --flush\fR             Forget previously found devices
+                       with a new Refresh.
+.br
+.br
+\fB-v --version\fR           Prints version.
+.br
+.br
+\fB-h --help\fR              Prints this message.
+
+.SH DESCRIPTION
+.PP
+Gtk GUI application that creates a virtual keyboard by connecting to a
+bluetooth server started by libstmm-input-gtk-bt (on another computer).
+
+.PP
+It looks for surrounding detectable bluetooth devices creating a list
+from which the server to connect to can be chosen.
+.br
+The \fB--extra-server\fR option can be used when the bluetooth address
+of the server is known. This avoids the scanning step (which may take many
+seconds) and allows one to connect to an undetectable device.
+
+.PP
+The server it connects to creates a virtual cable with the keyboard
+represented by the client device.
+This means that once connected, this program can disconnect (maybe accidentally)
+and reconnect at will. This is useful, for example, while playing a game:
+the virtual keyboard doesn't need to be reassigned to the player when bluetooth
+fails momentarily.
+The virtual keyboard has to be removed from the server explicitly when connected.
+
+.PP
+The GUI allows one to define a custom grid and assign to each of its cells a key.
+Cells can be pressed with the mouse, by touch or by pressing the assigned key
+on the (physical) keyboard.
+
+.SH AUTHOR
+.PP
+Written by Stefano Marsili <efanomars@gmx.ch>.
+
+.SH LICENSE
+.PP
+Copyright © 2018-2019 Stefano Marsili.
+
+.PP
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+.PP
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.

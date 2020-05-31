@@ -1,0 +1,1 @@
+libstmm-input-gtk-bt @STMM_INPUT_GTK_BT_MAJOR_VERSION@ libstmm-input-gtk-bt@STMM_INPUT_GTK_BT_MAJOR_VERSION@ (>= @STMM_INPUT_GTK_BT_MAJOR_VERSION@.0)

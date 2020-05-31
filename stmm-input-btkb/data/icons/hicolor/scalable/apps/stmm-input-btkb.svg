@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48px"
+   height="48px"
+   viewBox="0 0 4800 4800"
+   version="1.1"
+   id="svg16"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="device-floater.svg"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+
+  <metadata
+     id="metadata888">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+        <dc:title />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/SourceCode" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <defs>
+
+    <filter id="CaseFilter" filterUnits="userSpaceOnUse" x="0" y="0" width="4800" height="4800">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+      <!--feOffset in="blur" dx="80" dy="80" result="offsetBlur"/-->
+      <feSpecularLighting in="blur" surfaceScale="150" specularConstant="1.15" 
+                          specularExponent="10" lighting-color="#bbbbbb"  
+                          result="specOut">
+        <fePointLight x="-10000" y="50000" z="50000"/>
+      </feSpecularLighting>
+      <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"/>
+      <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" 
+                   k1="0" k2="1" k3="1" k4="0" result="litPaint"/>
+      <feMerge>
+        <!--feMergeNode in="offsetBlur"/-->
+        <feMergeNode in="litPaint"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="ReflectionGradient">
+      <stop offset="0%" stop-color="white" stop-opacity="1.0"/>
+      <stop offset="50%" stop-color="white" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="ReflectionMask" maskUnits="userSpaceOnUse"
+          x="0" y="0" width="4800" height="4800"  transform="rotate(0)">
+      <rect x="0" y="0" width="4800" height="4800" fill="url(#ReflectionGradient)"/>
+    </mask>
+  </defs>
+  <g
+     inkscape:label="Layer 2"
+     inkscape:groupmode="layer"
+     id="layer2"
+     transform="translate(0,0)"
+     style="display:inline">
+    <clipPath id="ScreenClip">
+      <path
+         d="M    0,4800 L    0,   0 L 4800,   0 L 4800,4800 L    0,4800 Z"/>
+    </clipPath>
+    <g>
+      <g clip-path="url(#ScreenClip)">
+        <path
+           d="M  100,1600 L 4700,1600  M  100,3200 L 4700,3200
+              M 1600, 100 L 1600,4700  M 3200, 100 L 3200,4700"
+           id="KeySeparations"
+           style="fill:none;stroke:#d0d0d0;stroke-width:80;
+                  stroke-linecap:none;stroke-miterlimit:4;stroke-dasharray:none" />
+        <g mask="url(#ReflectionMask)">
+          <rect x="0" y="0" width="4800" height="4800" style="fill:#AABBEE;fill-opacity=0.7"/><!--fill:#88AACC -->
+        </g>
+      </g>
+    </g>
+    <g>
+      <g filter="url(#CaseFilter)">
+        <path
+           d="M  150,4650 L 4650,4650 L 4650, 150 L  150, 150 L  150,4650 Z"
+           id="PdaCase"
+           style="fill:none;stroke:#404040;stroke-width:200;
+                  stroke-linecap:none;stroke-miterlimit:4;stroke-dasharray:none" />
+      </g>
+    </g>
+  </g>
+  <g
+     inkscape:label="Layer 3"
+     inkscape:groupmode="layer"
+     id="layer3"
+     transform="translate(1600,1250) scale(40) rotate(10)"
+     style="display:inline">
+    <path
+       sodipodi:nodetypes="cccccc"
+       id="path3367"
+       d="M 15.614515,35.282342 34.666666,18.444477 25.152299,9.0666662 25.123825,40 34.659981,30.694233 15.466668,16.646503"
+       style="fill:none;stroke:#0000c0;stroke-width:3.2;stroke-linecap:butt;
+              stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1.0"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

@@ -1,0 +1,84 @@
+<schemalist>
+  <schema id="com.efanomars.stmm-input-btkb" path="/com/efanomars/stmm-input-btkb/">
+    <key name="tot-columns" type="i">
+      <default>3</default>
+      <summary>Virtual keyboard width</summary>
+      <description>Virtual keyboard width in "keys".</description>
+    </key>
+    <key name="tot-rows" type="i">
+      <default>3</default>
+      <summary>Virtual keyboard height</summary>
+      <description>Virtual keyboard height in "keys".</description>
+    </key>
+    <key name="column-weights" type="s">
+      <default>''</default>
+      <summary>Column weights</summary>
+      <description>Comma separated list of column weights.</description>
+    </key>
+    <key name="row-weights" type="s">
+      <default>''</default>
+      <summary>Row weights</summary>
+      <description>Comma separated list of row weights.</description>
+    </key>
+    <key name="cell-keys" type="s">
+      <default>''</default>
+      <summary>Cell keys</summary>
+      <description>Comma separated list of key codes.</description>
+    </key>
+    <key name="fullscreen" type="b">
+      <default>false</default>
+      <summary>Fullscreen mode</summary>
+      <description>Whether the keyboard is shown fullscreen.</description>
+    </key>
+    <key name="exit-button-perc-x" type="i">
+      <default>50</default>
+      <summary>Where the exit button is shown (x axis)</summary>
+      <description>Where the exit button is shown. Value 0 is for left, 100 is for right.</description>
+    </key>
+    <key name="exit-button-perc-y" type="i">
+      <default>50</default>
+      <summary>Where the exit button is shown (y axis)</summary>
+      <description>Where the exit button is shown. Value 0 is for top, 100 is for bottom.</description>
+    </key>
+    <key name="exit-button-in-cell" type="b">
+      <default>false</default>
+      <summary>Cell/Window exit button context</summary>
+      <description>Whether exit button is positioned in a cell or whole window.</description>
+    </key>
+    <key name="exit-button-in-cell-column" type="i">
+      <default>1</default>
+      <summary>Cell where exit button is shown (x-axis)</summary>
+      <description>Cell where exit button is shown (x-axis). Only used if exit-button-in-cell is true.</description>
+    </key>
+    <key name="exit-button-in-cell-row" type="i">
+      <default>1</default>
+      <summary>Cell where exit button is shown (y-axis)</summary>
+      <description>Cell where exit button is shown (y-axis). Only used if exit-button-in-cell is true.</description>
+    </key>
+    <key name="log-sent-keys" type="b">
+      <default>false</default>
+      <summary>Log keys sent to bluetooth server</summary>
+      <description>Log pressed keys.</description>
+    </key>
+    <key name="selected-server-addr" type="s">
+      <default>''</default>
+      <summary>The last connected bluetooth server address</summary>
+      <description>The last connected bluetooth server address.</description>
+    </key>
+    <key name="selected-server-port" type="i">
+      <default>0</default>
+      <summary>The last connected bluetooth server port</summary>
+      <description>The last connected bluetooth server port.</description>
+    </key>
+    <key name="window-width" type="i">
+      <default>0</default>
+      <summary>The last window width (pixels)</summary>
+      <description>The last window width in pixels.</description>
+    </key>
+    <key name="window-height" type="i">
+      <default>0</default>
+      <summary>The last window height (pixels)</summary>
+      <description>The last window height in pixels.</description>
+    </key>
+  </schema>
+</schemalist>

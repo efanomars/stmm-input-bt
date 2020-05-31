@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=stmm-input-btkb
+Icon=stmm-input-btkb
+Type=Application
+Terminal=false
+Categories=Utility;
+Keywords=keyboard;stmm-input;virtual;bluetooth;
+Comment=Virtual keyboard over bluetooth
+Exec=stmm-input-btkb
+GenericName=stmm-input-btkb
+Name[en_US]=stmm-input-btkb

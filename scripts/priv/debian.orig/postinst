@@ -1,0 +1,7 @@
+#
+
+if [ "$1" = "configure" ] && [ -x "`which glib-compile-schemas 2>/dev/null`" ]; then
+	glib-compile-schemas "/usr/share/glib-2.0/schemas"
+fi
+
+#DEBHELPER#

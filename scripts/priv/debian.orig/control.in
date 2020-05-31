@@ -1,0 +1,72 @@
+Source: stmm-input-bt
+Priority: optional
+Maintainer: Stefano Marsili <efanomars@gmx.ch>
+Build-Depends: debhelper (>= 9)
+             , cmake
+             , python3
+             , doxygen
+             , graphviz
+             , libstmm-input-gtk-dev (>= @STMM_INPUT_GTK_BT_REQ_STMM_INPUT_GTK_VERSION@)
+             , libstmm-input-ev-dev (>= @STMM_INPUT_GTK_BT_REQ_STMM_INPUT_EV_VERSION@)
+             , libbluetooth-dev (>= @STMM_INPUT_GTK_BT_REQ_BLUETOOTH_VERSION@)
+             , libgtkmm-3.0-dev (>= @STMM_INPUT_BTKB_REQ_GTKMM_VERSION@)
+             , libbluetooth-dev (>= @STMM_INPUT_BTKB_REQ_BLUETOOTH_VERSION@)
+Standards-Version: 3.9.8
+Section: libs
+Homepage: @STMMI_WEBSITE_SECTION@/stmm-input-bt
+Vcs-Git: https://www.gitlab.com/efanomars/stmm-input-bt.git
+#Vcs-Browser: https://www.gitlab.com/efanomars/stmm-input-bt.git
+
+
+Package: libstmm-input-gtk-bt@STMM_INPUT_GTK_BT_MAJOR_VERSION@
+Architecture: any
+Depends: libstmm-input-gtk@STMM_INPUT_GTK_BT_REQ_STMM_INPUT_GTK_MAJOR_VERSION@ (>= @STMM_INPUT_GTK_BT_REQ_STMM_INPUT_GTK_VERSION@)
+       , libstmm-input-ev@STMM_INPUT_GTK_BT_REQ_STMM_INPUT_EV_MAJOR_VERSION@ (>= @STMM_INPUT_GTK_BT_REQ_STMM_INPUT_EV_VERSION@)
+       , libbluetooth3 (>= @STMM_INPUT_GTK_BT_REQ_BLUETOOTH_VERSION@)
+       , bluez
+       , ${shlibs:Depends}, ${misc:Depends}
+Recommends: libstmm-input-gtk-dm, stmm-input-plugins
+Suggests: stmm-input-btkb
+Description: Device input event library - keyboards over bluetooth
+ Extensible device input event library for C++ (C++14).
+ .
+ This library provides a device manager that starts a bluetooth server that
+ accepts connections. Each connection represents a keyboard device.
+ .
+ While it can be linked directly by programs, the plugin device manager
+ provided by the libstmm-input-gtk-dm library will automatically load
+ this library at runtime as a plugin (unless it is disabled).
+
+Package: libstmm-input-gtk-bt-dev
+Section: libdevel
+Architecture: any
+Depends: libstmm-input-gtk-bt@STMM_INPUT_GTK_BT_MAJOR_VERSION@ (= ${binary:Version})
+       , libstmm-input-gtk-dev (>= @STMM_INPUT_GTK_BT_REQ_STMM_INPUT_GTK_VERSION@)
+       , libstmm-input-ev-dev (>= @STMM_INPUT_GTK_BT_REQ_STMM_INPUT_EV_VERSION@)
+       , libbluetooth-dev (>= @STMM_INPUT_GTK_BT_REQ_BLUETOOTH_VERSION@)
+       , ${misc:Depends}
+Recommends: libstmm-input-gtk-dm-dev
+Description: Device input event library - keyboards over bluetooth (develop)
+ Extensible device input event library for C++ (C++14).
+ .
+ This library provides a device manager that starts a bluetooth server that
+ accepts connections. Each connection represents a keyboard device.
+ .
+ This package contains the development headers for the library found in
+ libstmm-input-gtk-bt@STMM_INPUT_GTK_BT_MAJOR_VERSION@.
+
+
+Package: stmm-input-btkb
+Architecture: any
+Depends: libbluetooth3 (>= @STMM_INPUT_BTKB_REQ_BLUETOOTH_VERSION@)
+       , libgtkmm-3.0-1v5 (>= @STMM_INPUT_BTKB_REQ_GTKMM_VERSION@)
+       , dconf-gsettings-backend | gsettings-backend
+       , ${shlibs:Depends}, ${misc:Depends}
+Suggests: libstmm-input-gtk-bt
+Description: Virtual keyboard over bluetooth for libstmm-input-gtk-bt
+ Gtk GUI application that creates a virtual keyboard by connecting to the
+ server started by libstmm-input-gtk-bt (on another computer).
+ .
+ It allows one to define a grid and assign to each cell a key. Cells can be
+ pressed with the mouse or by touch.
+
