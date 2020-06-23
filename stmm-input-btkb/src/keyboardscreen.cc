@@ -44,8 +44,8 @@ KeyboardScreen::KeyboardScreen(BtkbWindow& oBtkbWindow, InputStrings& oInputStri
 , m_p0Canvas(nullptr)
 , m_nCanvasX(0)
 , m_nCanvasY(0)
-, m_nExitButtonCenterX(std::numeric_limits<int32_t>::lowest())
-, m_nExitButtonCenterY(std::numeric_limits<int32_t>::lowest())
+, m_nExitButtonCenterX(std::numeric_limits<int32_t>::min())
+, m_nExitButtonCenterY(std::numeric_limits<int32_t>::min())
 {
 	//m_oBtkbWindow.set_border_width(0);
 //std::cout << "WeightScreen::WeightScreen() content area children: " << p0ContentArea->get_children().size() << '\n';
