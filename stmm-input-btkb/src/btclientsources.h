@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017-2019  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2020  Stefano Marsili, <stemars@gmx.ch>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ public:
 
 	// A source can have only one callback type, that is the slot given as parameter.
 	//   bool = m_oCallback(nSourceId, bDisconnect)
-	// nSourceId The unique source id 
+	// nSourceId The unique source id
 	// bDisconnect Tells whether the connect succeeded.
 	sigc::connection connect(const sigc::slot<bool, int32_t, bool>& oSlot) noexcept;
 

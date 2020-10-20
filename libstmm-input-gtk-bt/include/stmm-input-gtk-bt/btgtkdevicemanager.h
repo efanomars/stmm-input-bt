@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017-2019  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2020  Stefano Marsili, <stemars@gmx.ch>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -77,7 +77,7 @@ public:
 
 	void enableEventClass(const Event::Class& oEventClass) noexcept override;
 
-	/** Adds a stmi::GtkAccessor-wrapped Gtk::Window from which events should be received. 
+	/** Adds a stmi::GtkAccessor-wrapped Gtk::Window from which events should be received.
 	 * An instance of this class needs a stmi::GtkAccessor for each active Gtk::Window
 	 * listeners want to receive events from.
 	 * If the type of parameter refAccessor is not stmi::GtkAccessor, `false` is returned.
@@ -86,10 +86,10 @@ public:
 	bool addAccessor(const shared_ptr<Accessor>& refAccessor) noexcept override;
 	/** Removes a stmi::GtkAccessor-wrapped Gtk::Window added with addAccessor().
 	 * If the device manager has the accessor, `true` is returned, `false` otherwise.
-	 * 
+	 *
 	 * This function doesn't delete the window itself, it just tells the device manager
 	 * to stop tracking it.
-	 * 
+	 *
 	 * Cancels are sent to listeners for each being pressed key.
 	 */
 	bool removeAccessor(const shared_ptr<Accessor>& refAccessor) noexcept override;
@@ -121,14 +121,14 @@ private:
 	void selectAccessor(const shared_ptr<Private::Bt::GtkWindowData>& refData) noexcept;
 	void deselectAccessor() noexcept;
 	void onIsActiveChanged(const shared_ptr<Private::Bt::GtkWindowData>& refWindowData) noexcept;
-	
+
 	friend class Private::Bt::GtkWindowData;
 	friend class Private::Bt::BtKeysDevice;
 	friend class Private::Bt::BtGtkListenerExtraData;
 private:
 	std::unique_ptr<Private::Bt::GtkWindowDataFactory> m_refFactory;
 	std::unique_ptr<Private::Bt::GtkBackend> m_refBackend;
-	// The GtkAccessor (GtkWindowData::m_refAccessor) will tell 
+	// The GtkAccessor (GtkWindowData::m_refAccessor) will tell
 	// when the window gets deleted. The accessor can also be removed
 	// explicitely during a listener callback.
 	std::vector<std::pair<Gtk::Window*, shared_ptr<Private::Bt::GtkWindowData> > > m_aGtkWindowData;

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017-2019  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2020  Stefano Marsili, <stemars@gmx.ch>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +69,7 @@ public:
 	STATE getState() const noexcept { return m_eState; }
 	const std::string& getError() const noexcept { return m_sLastError; }
 	/** Connect to a BtKey server.
-	 * 
+	 *
 	 * @param oBtAddr The address.
 	 */
 	void connectToServer(const bdaddr_t& oBtAddr, int32_t nL2capPort) noexcept;
@@ -77,7 +77,7 @@ public:
 	void sendRemoveToServer() noexcept;
 
 	void sendKeyToServer(hk::KEY_INPUT_TYPE eType, hk::HARDWARE_KEY eKey) noexcept;
-	
+
 	sigc::signal<void> m_oStateChangedSignal;
 	sigc::signal<void> m_oErrorSignal;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017-2019  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2020  Stefano Marsili, <stemars@gmx.ch>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * License along with this program; if not, see <http://www.gnu.org/licenses/>
  */
 /*
- * File:   fakebtmasgtkdevicemanager.h
+ * File:   fakebtgtkdevicemanager.h
  */
 
 #ifndef STMI_TESTING_FAKE_BT_GTK_DEVICE_MANAGER_H

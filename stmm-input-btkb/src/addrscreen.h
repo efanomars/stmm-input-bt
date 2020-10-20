@@ -29,7 +29,7 @@
 
 namespace stmi
 {
-	
+
 class BtkbWindow;
 
 class AddrScreen
@@ -60,7 +60,7 @@ private:
 
 	Glib::RefPtr<Gtk::EntryBuffer> m_refEntryBuffer;
 	////////////
-	std::string m_sOldAddr; 
+	std::string m_sOldAddr;
 	std::string m_sAddr;
 
 	static const std::string s_sLabelStringNormal;

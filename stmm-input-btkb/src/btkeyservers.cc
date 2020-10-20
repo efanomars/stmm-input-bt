@@ -41,7 +41,7 @@ BtKeyServers::BtKeyServers() noexcept
 BtKeyServers::BtKeyServers(int32_t n1s28PeriodsAddr, int32_t nL2capPort, const ::bdaddr_t& oExtraAddr, bool bFlush) noexcept
 : BtKeyServers(n1s28PeriodsAddr, nL2capPort, true, oExtraAddr, bFlush)
 {
-	
+
 }
 BtKeyServers::BtKeyServers(int32_t n1s28PeriodsAddr, int32_t nL2capPort
 							, bool bExtraServer, const ::bdaddr_t& oExtraAddr, bool bFlush) noexcept
@@ -121,7 +121,7 @@ bdaddr_t BtKeyServers::getAddrFromString(const std::string& sBtAddr) noexcept
 {
 	bdaddr_t oAddr;
 	#ifndef NDEBUG
-	const auto nRet = 
+	const auto nRet =
 	#endif //NDEBUG
 	::str2ba(sBtAddr.c_str(), &oAddr);
 	assert(nRet == 0);
@@ -202,7 +202,7 @@ std::pair<std::string, std::vector<BtKeyServers::ServerInfo>> BtKeyServers::refr
 		const auto oPair = std::make_pair(std::string("Error opening hci socket: ") + strerror(errno), aServers);
 		return oPair; //--------------------------------------------------------
 	}
-	
+
 	int nFlags = (bFlush ? IREQ_CACHE_FLUSH : 0);
 
 	inquiry_info aInquiryInfos[s_nMaxServers];

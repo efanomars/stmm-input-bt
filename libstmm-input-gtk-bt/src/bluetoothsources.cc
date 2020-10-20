@@ -311,7 +311,7 @@ bool BlueServerReceiveSource::dispatch(sigc::slot_base* p0Slot) noexcept
 			if (oPacket.m_nCmd != PACKET_CMD_KEY) {
 				bContinue = closeConnection(p0Slot, false, oPacket, "BlueServerReceiveSource::dispatch error: bad cmd field!");
 				return bContinue; //--------------------------------------------
-				
+
 			}
 			bContinue = (*static_cast<sigc::slot<bool, int32_t, bool, const KeyPacket&>*>(p0Slot))
 														(m_nBackendId, false, oPacket);

@@ -302,7 +302,7 @@ private:
 	////////////
 	friend class KeyboardDialog;
 	// Following: the data stored in the config
-	int32_t m_nTotColumns = s_nEditInitialGridW; 
+	int32_t m_nTotColumns = s_nEditInitialGridW;
 	int32_t m_nTotRows = s_nEditInitialGridH;
 	std::vector<int32_t> m_aEditColumnsWeight; // Size: m_nTotColumns
 	std::vector<int32_t> m_aEditRowsWeight; // Size: m_nTotRows

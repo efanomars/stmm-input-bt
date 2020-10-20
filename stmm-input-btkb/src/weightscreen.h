@@ -15,7 +15,7 @@
  * License along with this program; if not, see <http://www.gnu.org/licenses/>
  */
 /*
- * File:   weightdialog.h
+ * File:   weightscreen.h
  */
 
 #ifndef STMI_WEIGHT_SCREEN_H
@@ -60,7 +60,7 @@ private:
 	bool m_bColumn; // just stored for callback
 	int32_t m_nColRow; // just stored for callback
 	//
-	int32_t m_nOldWeight; 
+	int32_t m_nOldWeight;
 	int32_t m_nWeight;
 	const int32_t m_nMinWeight;
 	const int32_t m_nMaxWeight;

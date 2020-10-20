@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2020  Stefano Marsili, <stemars@gmx.ch>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -92,7 +92,7 @@ private:
 //std::cout << "GtkWindowData::disconnect()" << '\n';
 		m_aConnectedDevices.clear();
 	}
-	
+
 private:
 	friend class FakeGtkWindowDataFactory;
 	shared_ptr<GtkAccessor> m_refAccessor;

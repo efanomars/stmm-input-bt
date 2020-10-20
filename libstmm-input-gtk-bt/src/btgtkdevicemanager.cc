@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017-2019  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2020  Stefano Marsili, <stemars@gmx.ch>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -162,7 +162,7 @@ void BtGtkDeviceManager::onDeviceAdded(const std::string& sName, int32_t nBacken
 	m_aBtDevices[nBackendId] = refNewDevice;
 	//
 	#ifndef NDEBUG
-	const bool bAdded = 
+	const bool bAdded =
 	#endif
 	StdDeviceManager::addDevice(refNewDevice);
 	assert(bAdded);
@@ -286,7 +286,7 @@ bool BtGtkDeviceManager::addAccessor(const shared_ptr<Accessor>& refAccessor) no
 				Gtk::Window* p0SelectedGtkmmWindow = refSelectedAccessor->getGtkmmWindow();
 				std::vector< std::pair<Gtk::Window*, shared_ptr<GtkWindowData> > >::iterator itSelectedFind;
 				#ifndef NDEBUG
-				const bool bFoundWindow = 
+				const bool bFoundWindow =
 				#endif //NDEBUG
 				findWindow(p0SelectedGtkmmWindow, itSelectedFind);
 				assert(bFoundWindow);

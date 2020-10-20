@@ -234,7 +234,7 @@ void BtKeysDevice::sendKeyEventToListener(const BtGtkDeviceManager::ListenerData
 												, shared_ptr<Event>& refEvent) noexcept
 {
 	const auto nAddTimeStamp = oListenerData.getAddedTimeStamp();
-//std::cout << "GtkXKeyboardDevice::sendKeyEventToListener nAddTimeUsec=" << nAddTimeUsec;
+//std::cout << "BtKeysDevice::sendKeyEventToListener nAddTimeUsec=" << nAddTimeUsec;
 //std::cout << "  nTimePressedUsec=" << nTimePressedUsec << "  nEventTimeUsec=" << nEventTimeUsec << '\n';
 	if (nPressedTimeStamp < nAddTimeStamp) {
 		// The listener was added after the key was pressed

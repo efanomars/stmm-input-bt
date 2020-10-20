@@ -33,17 +33,17 @@
 #include <cstdint>
 #include <limits>
 #include <utility>
-
-#include <bluetooth/bluetooth.h>
-
-#include <unistd.h>
-
 #ifdef STMM_SNAP_PACKAGING
 #include <array>
+
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #endif //STMM_SNAP_PACKAGING
+
+#include <bluetooth/bluetooth.h>
+
+#include <unistd.h>
 
 namespace stmi
 {
@@ -168,7 +168,7 @@ BtkbWindow::BtkbWindow(const std::string& sTitle, BtKeyClient& oBtKeyClient, BtK
 	}
 
 	std::string sInfoTitle{"stmm-input-btkb"};
-	std::string sInfoText = std::string("") + 
+	std::string sInfoText = std::string("") +
 			"\n"
 			"Version: " + Config::getVersionString() + "\n"
 			"\n"
@@ -582,7 +582,7 @@ void BtkbWindow::onServerSelectionChanged() noexcept
 	} else {
 		m_nSelectedPort = 0;
 	}
-	
+
 }
 void BtkbWindow::onChooseServer() noexcept
 {
@@ -599,7 +599,7 @@ void BtkbWindow::onChooseServer() noexcept
 	bool bFound = false;
 	const auto& aServerInfos = m_oBtKeyServers.getServers();
 	for (const auto& oInfo : aServerInfos) {
-		if ((BtKeyServers::getStringFromAddr(oInfo.m_oBtAddr) == m_sSelectedAddr) 
+		if ((BtKeyServers::getStringFromAddr(oInfo.m_oBtAddr) == m_sSelectedAddr)
 				&& (m_nSelectedPort == oInfo.m_nL2capPort)) {
 			m_oCurServer = std::move(oInfo);
 			bFound = true;
@@ -676,7 +676,7 @@ void BtkbWindow::setKey(hk::HARDWARE_KEY eKey, int32_t nColumn, int32_t nRow, co
 	m_aEditNames[nIdx] = m_oInputStrings.getKeyString(eKey);
 	(*itListKeyName)[m_oCellKeyColumns.m_oColHiddenHardwareKey] = eKey;
 	(*itListKeyName)[m_oCellKeyColumns.m_oColKeyName] = m_aEditNames[nIdx];
-	
+
 }
 void BtkbWindow::printStringToLog(const std::string& sStr) noexcept
 {

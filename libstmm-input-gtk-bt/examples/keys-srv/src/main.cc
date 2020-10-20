@@ -1,5 +1,5 @@
 /*
- * Copyright © 2017  Stefano Marsili, <stemars@gmx.ch>
+ * Copyright © 2017-2020  Stefano Marsili, <stemars@gmx.ch>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -11,8 +11,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, see <http://www.gnu.org/licenses/>
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, see <http://www.gnu.org/licenses/>
  */
 /*
  * File:   main.cc
@@ -42,7 +42,7 @@ int keysSrvMain(int argc, char** argv)
 	Glib::RefPtr<Gtk::Application> refApp = Gtk::Application::create(argc, argv, sAppName);
 	std::cout << "keys-srv prints hardware key events from virtual keyboards connected" << '\n';
 	std::cout << "         via bluetooth and tracks their lifetime as devices." << '\n';
-	std::cout << "keys-srv uses libstmm-input-bt  version " << stmi::libconfig::gtkbt::getVersion() << '\n';
+	std::cout << "keys-srv uses libstmm-input-gtk-bt  version " << stmi::libconfig::gtkbt::getVersion() << '\n';
 	// device manager has to be created after gtk is initialized!
 	auto oPairDM = stmi::BtGtkDeviceManager::create("keys-srv", false, {});
 	const shared_ptr<stmi::DeviceManager>& refDM = oPairDM.first;

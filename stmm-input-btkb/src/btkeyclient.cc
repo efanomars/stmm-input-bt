@@ -77,7 +77,7 @@ void BtKeyClient::connectToServer(const bdaddr_t& oBtAddr, int32_t nL2capPort) n
 		m_oErrorSignal();
 		return; //--------------------------------------------------------------
 	}
-	// Set non-blocking 
+	// Set non-blocking
 	auto nArg = ::fcntl(m_nClientFD, F_GETFL, 0);
 	if (nArg < 0) {
 		::close(m_nClientFD);
@@ -85,8 +85,8 @@ void BtKeyClient::connectToServer(const bdaddr_t& oBtAddr, int32_t nL2capPort) n
 		m_sLastError = std::string("Socket fcntl get failed: ") + strerror(errno);
 		m_oErrorSignal();
 		return; //--------------------------------------------------------------
-	} 
-	nArg |= O_NONBLOCK; 
+	}
+	nArg |= O_NONBLOCK;
 	nArg = ::fcntl(m_nClientFD, F_SETFL, nArg);
 	if (nArg < 0) {
 		::close(m_nClientFD);
@@ -94,7 +94,7 @@ void BtKeyClient::connectToServer(const bdaddr_t& oBtAddr, int32_t nL2capPort) n
 		m_sLastError = std::string("Socket fcntl set failed: ") + strerror(errno);
 		m_oErrorSignal();
 		return; //--------------------------------------------------------------
-	} 
+	}
 
 	m_oBtAddr = BtKeyServers::getAddrCopy(oBtAddr);
 	m_nL2capPort = nL2capPort;

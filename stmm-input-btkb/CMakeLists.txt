@@ -1,19 +1,19 @@
-# File: stmm-input-btkb/CMakeLists.txt
+# Copyright © 2019-2020  Stefano Marsili, <stemars@gmx.ch>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public
+# License along with this program; if not, see <http://www.gnu.org/licenses/>
 
-#  Copyright © 2019-2020  Stefano Marsili, <stemars@gmx.ch>
-#
-#  This program is free software: you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation, either version 3 of the License, or
-#  (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public
-#  License along with this program; if not, see <http://www.gnu.org/licenses/>
+# File:   stmm-input-btkb/CMakeLists.txt
 
 cmake_minimum_required(VERSION 3.0)
 
@@ -49,15 +49,18 @@ set(STMMI_BTKB_SOURCES
         "${PROJECT_SOURCE_DIR}/src/btkbwindow.h"
         "${PROJECT_SOURCE_DIR}/src/btkbwindow.cc"
         "${PROJECT_SOURCE_DIR}/src/circularbuffer.h"
+        "${PROJECT_SOURCE_DIR}/src/circularbuffer.cc"
         "${PROJECT_SOURCE_DIR}/src/config.h"
         "${PROJECT_SOURCE_DIR}/src/gtkutilpriv.h"
         "${PROJECT_SOURCE_DIR}/src/gtkutilpriv.cc"
         "${PROJECT_SOURCE_DIR}/src/hardwarekey.h"
+        "${PROJECT_SOURCE_DIR}/src/hardwarekey.cc"
         "${PROJECT_SOURCE_DIR}/src/inputstrings.h"
         "${PROJECT_SOURCE_DIR}/src/inputstrings.cc"
         "${PROJECT_SOURCE_DIR}/src/keyboardscreen.h"
         "${PROJECT_SOURCE_DIR}/src/keyboardscreen.cc"
         "${PROJECT_SOURCE_DIR}/src/keypacket.h"
+        "${PROJECT_SOURCE_DIR}/src/keypacket.cc"
         "${PROJECT_SOURCE_DIR}/src/keyscreen.h"
         "${PROJECT_SOURCE_DIR}/src/keyscreen.cc"
         "${PROJECT_SOURCE_DIR}/src/main.cc"
