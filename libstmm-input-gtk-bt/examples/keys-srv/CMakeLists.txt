@@ -14,10 +14,10 @@ if (NOT PKG_CONFIG_FOUND)
 endif()
 
 # Version
-set(KEYS_SRV_VERSION "0.18") # !-U-!
+set(KEYS_SRV_VERSION "0.19") # !-U-!
 
 # Required libraries
-set(KEYS_SRV_REQ_STMM_INPUT_GTK_BT_VERSION "0.18") # !-U-!
+set(KEYS_SRV_REQ_STMM_INPUT_GTK_BT_VERSION "0.19") # !-U-!
 
 # Beware! The prefix passed to pkg_check_modules(PREFIX ...) shouldn't contain underscores!
 pkg_check_modules(STMMINPUTGTKBT  REQUIRED  stmm-input-gtk-bt>=${KEYS_SRV_REQ_STMM_INPUT_GTK_BT_VERSION})
